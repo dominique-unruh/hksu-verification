@@ -1,0 +1,13 @@
+include "variables.qrhl".
+
+program decapsQuery2_range := {
+  if (c=cstar)
+  then
+    K' <- None;
+  else {
+    if (c ∉ encrT G pk ` msg_space ()) then
+      K' <- Some (Hr c);
+    else
+      K' <- Some (Hq c);
+  }
+}.

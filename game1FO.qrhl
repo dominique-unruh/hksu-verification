@@ -1,0 +1,22 @@
+include "decapsQuery1.qrhl".
+include "Adv_INDCCA_encFO.qrhl".
+include "queryG.qrhl".
+include "queryH.qrhl".
+
+# Picking H0 additionally (not in AKE paper) to construct Hq properly outside msg_spaceT
+
+program game1FO := {
+  G <$ uniform UNIV;
+  Hr <$ uniform UNIV;
+  H0 <$ uniform UNIV;
+  Hq <$ uniform UNIV;
+  (pk,(sk,prfk)) <$ keygenFO (G,undefined);
+  H <- mk_Hq Hq H0 G pk;
+  mstar <$ uniform (msg_spaceT G);
+  cstar <- encrT G pk mstar;
+  Kstar <- Hq cstar;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_INDCCA_encFO(queryG,queryH,decapsQuery1);
+}.
+

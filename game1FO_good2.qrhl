@@ -1,0 +1,28 @@
+include "ClassicalQueryG.qrhl".
+include "queryH_Hq.qrhl".
+include "decapsQuery2.qrhl".
+include "Adv_INDCCA_encFO.qrhl".
+
+# Difference from game1FO_good: uses decapsQuery2
+
+program game1FO_good2 := {
+  Hr <$ uniform UNIV;
+  H0 <$ uniform UNIV;
+  Hq <$ uniform UNIV;
+  (pk,sk) <$ keygenT undefined;
+  prfk <$ keygenPRF;
+  Ggood <$ uniform {G. ∀m. G m ∉ Rbad pk sk m};
+  Gbad <$ uniform {G. ∀m. G m ∈ Rbad pk sk m};
+  S <$ Rbad_select pk sk;
+  G <- Ggood;
+  mstar <$ uniform (msg_spaceT undefined);
+  gin <- mstar;
+  call ClassicalQueryG(queryG);
+  cstar <- encr () pk mstar gout;
+  Kstar <- Hq cstar;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  gin <- undefined;
+  gout <- undefined;
+  call Adv_INDCCA_encFO(queryG,queryH_Hq(queryG),decapsQuery2);
+}.

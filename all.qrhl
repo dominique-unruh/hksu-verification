@@ -1,0 +1,11 @@
+# enc (the result of transformation Punc) is DS secure
+include "lemma_ds_security.qrhl".
+
+# enc (the result of transformation Punc) is IND-CPA secure
+include "lemma_indcpa_security.qrhl".
+
+# encT (the result of transformation T) is DS secure
+include "lemma_ds_encT_security.qrhl".
+
+# encFO (the result of transformation U) is IND-CCA secure
+include "lemma_encFO_indcca.qrhl".

@@ -1,0 +1,134 @@
+include "game1FO_goodbad_badpk.qrhl".
+include "game1FO_goodbad_o2h_left_class.qrhl".
+include "bernoulli_correctness.qrhl".
+include "axioms.qrhl".
+
+# GRAPH: EQ("game1FO_goodbad_badpk_o2h_left_class","game1FO_goodbad_o2h_left_class","game1FO_goodbad_badpk")
+qrhl game1FO_goodbad_badpk_o2h_left_class: 
+     {ℭ𝔩𝔞[m'1=m'2 & classA1=classA2 & b1=b2 & gout1=gout2] 
+                       ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧}
+     call game1FO_goodbad_o2h_left_class; ~ call game1FO_goodbad_badpk;
+     {Cla[bad_pk pk1 sk1] + Cla[b1 = b2]}.
+
+ inline game1FO_goodbad_badpk.
+ inline game1FO_goodbad_o2h_left_class.
+
+ # Adv_INDCCA_encFO
+ seq <-> 17 17: Cla[bad_pk pk1 sk1] + (Cla[¬ bad_pk pk1 sk1 & H01=H02 & Hq1=Hq2 & G1=G2 & Kstar1=Kstar2 & in_cstar1=in_cstar2 & in_pk1=in_pk2 & classA1=classA2 & gout1=gout2 & Hr1=Hr2 & sk1=sk2 & cstar1=cstar2 & b1=b2 & pk1=pk2 & m'1=m'2 & H1=H2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧).
+
+ case bad := bad_pk pk1 sk1.
+ casesplit bad.
+
+ # Case bad
+ conseq pre: top ⊓ Cla[bad_pk pk1 sk1].
+  simp!.
+ conseq post: top ⊓ Cla[bad_pk pk1 sk1].
+  simp!.
+ frame.
+  simp!.
+ seq 1 0: top.
+ # Adv_INDCCA_encFO(queryG,queryH,decapsQuery1)
+ conseq qrhl: Adv_INDCCA_encFO_lossless_dq1.
+  simp!.
+  simp!.
+ # Adv_INDCCA_encFO(queryG,queryH,decapsQuery1_badpk)
+ sym.
+ conseq qrhl: Adv_INDCCA_encFO_lossless_bpk.
+  simp!.
+  simp!.
+ 
+ # Case ¬ bad
+
+ # Specifying the invariant for equal.
+ conseq post: Cla[¬ bad_pk pk1 sk1 & b1=b2 & cstar1=cstar2 & sk1=sk2 & Hr1=Hr2 & Hq1=Hq2 & pk1=pk2 & m'1=m'2 & H1=H2].
+  simp!.
+
+ equal.
+  simp!.
+
+  # decapsQuery1_G ~ decapsQuery1_badpk
+  inline decapsQuery1.
+  inline decapsQuery1_badpk.
+
+  simp.
+  wp 1 1.
+  skip.
+  isa! auto.
+
+ skip.
+ simp!.
+ # end of Adv_INDCCA_encFO
+
+ # count–H
+ equal 17.
+  simp!.
+
+ skip.
+ simp.
+qed.
+
+
+# GRAPH: O2H("game1FO_goodbad_badpk1","game1FO_goodbad_o2h_left_class","game1FO_goodbad_badpk","game1FO_goodbad_o2h_left_class", uses="game1FO_goodbad_badpk_o2h_left_class")
+
+lemma game1FO_goodbad_badpk1: 
+  abs (Pr[b=1: game1FO_goodbad_o2h_left_class(rho)] - Pr[b=1: game1FO_goodbad_badpk(rho)])
+  <= Pr[bad_pk pk sk : game1FO_goodbad_o2h_left_class(rho)].
+
+ rule equal_until_bad.
+ simp.
+ byqrhl.
+ sym.
+ conseq qrhl: game1FO_goodbad_badpk_o2h_left_class.
+  simp!.
+  simp!.
+ simp.
+ byqrhl.
+ conseq qrhl: game1FO_goodbad_badpk_o2h_left_class.
+  simp!.
+  simp!.
+qed.
+
+
+# GRAPH: LEQ("game1FO_goodbad_o2h_left_class_bad_pk","game1FO_goodbad_o2h_left_class","bernoulli_correctness")
+lemma game1FO_goodbad_o2h_left_class_bad_pk: Pr[bad_pk pk sk : game1FO_goodbad_o2h_left_class(rho)] <= Pr[b=1 : bernoulli_correctness(rho)].
+ byqrhl.
+
+ conseq pre: top.
+  simp!.
+
+ inline game1FO_goodbad_o2h_left_class.
+ inline bernoulli_correctness.
+
+ # Adv_INDCCA_encFO
+ seq <-> 17 1: Cla[bad_pk pk1 sk1 ⟶ b2=1].
+ conseq post: Cla[True] ⊓ Cla[bad_pk pk1 sk1 ⟶ b2=1].
+  simp!.
+ conseq pre: Cla[True] ⊓ Cla[bad_pk pk1 sk1 ⟶ b2=1].
+  simp!.
+ frame.
+  simp!.
+ rule Adv_INDCCA_encFO_lossless_dq1.
+
+ # pk,sk-gout
+ wp left 15.
+ conseq post: Cla[True] ⊓ Cla[bad_pk (fst z'1) (snd z'1) ⟶ b2=1].
+  simp!.
+
+ rnd (S,G,G',z'),b <- below_bernoulli goodbad_o2h_distr {(S,G,G',(pk,sk)). bad_pk pk sk} (correctness params keygen enc dec msg_space).
+
+ wp left.
+ skip.
+ isa! auto simp: below_bernoulli_supp min_absorb1 max_absorb1 Prob_goodbad_o2h_distr_bad_pk, frule below_bernoulli_supp, auto.
+qed.
+
+# GRAPH: CLOSE("game1FO_goodbad_badpk","game1FO_goodbad_o2h_left_class","game1FO_goodbad_badpk", uses=["game1FO_goodbad_badpk1","bernoulli_correctness_Pr","game1FO_goodbad_o2h_left_class_bad_pk"])
+lemma game1FO_goodbad_badpk: 
+  abs (Pr[b=1: game1FO_goodbad_o2h_left_class(rho)] - Pr[b=1: game1FO_goodbad_badpk(rho)])
+  <= correctness params keygen enc dec msg_space.
+
+ rule order.trans[OF game1FO_goodbad_badpk1].
+ simp bernoulli_correctness_Pr[symmetric].
+ rule game1FO_goodbad_o2h_left_class_bad_pk.
+qed.
+
+

@@ -1,0 +1,18 @@
+include "queryH_Hq.qrhl".
+include "Adv_INDCCA_encFO.qrhl".
+include "decapsQuery2_adv_cstar.qrhl".
+
+# * Input: in_pk in_cstar
+# * Output: b
+program Adv_DS_encT(queryGG) := {
+  local Hr, H0, Hq, Kstar, adv_cstar, pk;
+  Hr <$ uniform UNIV;
+  H0 <$ uniform UNIV;
+  Hq <$ uniform UNIV;
+  Kstar <- Hq in_cstar;
+  adv_cstar <- in_cstar;
+  pk <- in_pk;
+  call Adv_INDCCA_encFO(queryGG,queryH_Hq(queryGG),decapsQuery2_adv_cstar);
+}.
+
+

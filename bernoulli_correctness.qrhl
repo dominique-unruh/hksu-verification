@@ -1,0 +1,11 @@
+include "variables.qrhl".
+
+program bernoulli_correctness := {
+ b <$ bernoulli (correctness params keygen enc dec msg_space);
+}.
+
+# GRAPH: ONESIDED("bernoulli_correctness_Pr","bernoulli_correctness")
+lemma bernoulli_correctness_Pr: Pr[b=1 : bernoulli_correctness(rho)] = correctness params keygen enc dec msg_space.
+ simp bernoulli_correctness_def probability_sample bernoulli1.
+qed.
+

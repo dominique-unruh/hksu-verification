@@ -1,0 +1,7 @@
+include "Adv_DS_encT.qrhl".
+
+program Adv_SCS(query) := {
+  (in_pk,in_cstar) <- z;
+  pk <- in_pk;
+  call Adv_DS_encT(query);
+}.

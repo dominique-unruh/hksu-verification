@@ -1,0 +1,17 @@
+include "decapsQuery.qrhl".
+include "decapsQueryPRF.qrhl".
+include "queryPRF.qrhl".
+
+# GRAPH: EQ("decapsQuery_decapsQueryPRF","decapsQuery","decapsQueryPRF")
+qrhl decapsQuery_decapsQueryPRF: 
+  {ℭ𝔩𝔞[pk_of_sk sk2 = pk2 ∧ skfo1 = (sk2, prfk2) ∧ cstar1=cstar2 ∧ classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ G1 = G2 ∧ H1 = H2 ∧ Kstar1=Kstar2 ∧ in_pk1=in_pk2 & in_cstar1=in_cstar2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}
+        call decapsQuery; ~ call decapsQueryPRF(queryPRF); 
+  {ℭ𝔩𝔞[pk_of_sk sk2 = pk2 ∧ skfo1 = (sk2, prfk2) ∧ cstar1=cstar2 ∧ classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ G1 = G2 ∧ H1 = H2 ∧ Kstar1=Kstar2 ∧ in_pk1=in_pk2 & in_cstar1=in_cstar2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}.
+ inline decapsQuery.
+ inline decapsQueryPRF.
+ inline queryPRF.
+ wp 1 1.
+ skip.
+ # Beyond the abilities of the simplifier
+ rule decapsQuery_decapsQueryPRF_vc.
+qed.

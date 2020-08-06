@@ -1,0 +1,12 @@
+include "lemma_game2_o2h_right.qrhl".
+include "lemma_game3_o2h_left.qrhl".
+include "lemma_o2h.qrhl".
+include "lemma_game4_o2h_find.qrhl".
+
+# GRAPH: O2H("game2_game3","game3","game2","game4", uses=["game2_o2h_right","game3_o2h_left","game4_o2h_find","o2h"])
+lemma game2_game3: 
+      abs ( Pr[b=1:game3(rho)] - Pr[b=1:game2(rho)] )
+           <= 2 * sqrt( (1+real q) * Pr[Find:game4(rho)] ).
+ simp! game2_o2h_right game3_o2h_left game4_o2h_find o2h.
+qed.
+

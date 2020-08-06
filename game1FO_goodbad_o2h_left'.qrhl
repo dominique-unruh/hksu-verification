@@ -1,0 +1,13 @@
+include "Adv_O2H_Game1FO.qrhl".
+include "queryG.qrhl".
+
+# Like game1FO_goodbad_o2h_left but omitting the Count oracle (the
+# Count oracle makes the proof of game1FO_game2FO_o2h unnecessarily
+# complicated because then count cannot be removed by the frame rule
+# in the ClassicalQueryG_queryG use and things get confusing from there)
+
+program game1FO_goodbad_o2h_left' := {
+  count <- 0;
+  (S,G,G',z') <$ goodbad_o2h_distr;
+  call Adv_O2H_Game1FO(queryG);
+}.

@@ -1,0 +1,99 @@
+include "game2FO_goodbad_range.qrhl".
+include "game2FO_goodbad_o2h_left_class.qrhl".
+
+# GRAPH: EQ("game2FO_goodbad_range","game2FO_goodbad_range","game2FO_goodbad_o2h_left_class")
+
+lemma game2FO_goodbad_range: Pr[b=1: game2FO_goodbad_range(rho)] = Pr[b=1: game2FO_goodbad_o2h_left_class(rho)].
+
+ byqrhl.
+ inline game2FO_goodbad_o2h_left_class.
+ inline game2FO_goodbad_range.
+
+ conseq post: Cla[gout1=gout2 & b1=b2 & cstar1=cstar2 & HqHr_match pk1 G1 Hq1 Hr1 Hq2 & sk1=sk2 & H01=H02 & pk1=pk2].
+  simp!.
+
+ # Adv_INDCCA_encFO
+ equal mid quantA, Hin, Hout, Gin, Gout.
+  simp!.
+
+  # decapsQuery2_range ~ decapsQuery2
+  inline decapsQuery2.
+  inline decapsQuery2_range.
+
+  conseq post: ℭ𝔩𝔞[gout1 = gout2 ∧ cstar1 = cstar2 ∧ HqHr_match pk1 G1 Hq1 Hr1 Hq2 ∧ sk1 = sk2 ∧ H01 = H02 ∧ pk1 = pk2 ∧ classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 ∧ H1 = H2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧.
+   isa! auto.
+
+  # case "c=cstar"
+  if joint.
+   simp!.
+  # K' <- None
+  wp 1 1.
+  skip.
+  isa! auto.
+
+  # case "c∉encrT G pk ` msg_space()"
+  if left.
+  wp 1 1.
+  skip.
+  isa! auto simp: HqHr_match_def.
+
+  # case "c∈encrT G pk ` msg_space()"
+  wp 1 1.
+  skip.
+  isa! auto simp: HqHr_match_def.
+
+ # end of Adv_INDCCA_encFO
+
+
+ # H
+ wp 1 1.
+ simp.
+ conseq post: ℭ𝔩𝔞[gout1 = gout2 ∧ cstar1 = cstar2 ∧ HqHr_match pk1 G1 Hq1 Hr1 Hq2 ∧ sk1 = sk2 ∧ H01 = H02 ∧ pk1 = pk2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  isa! auto simp: HqHr_match_mk_Hq.
+
+ # in_pk–gout
+ equal 4.
+  simp!.
+
+ # Kstar
+ # ONLY NON PRIME:
+ wp 1 1.
+ # ONLY PRIME: rnd.
+ conseq post: ℭ𝔩𝔞[pk1 = pk2 ∧ cstar1 = cstar2 ∧ H01 = H02 ∧ G1 = G2 ∧ cstar1 = cstar2 ∧ HqHr_match pk1 G1 Hq1 Hr1 Hq2 ∧ sk1 = sk2 ∧ H01 = H02 ∧ pk1 = pk2 ∧ classA1 = classA2 ∧ b1 = b2 & cstar1 ∈ encrT G1 pk1 ` msg_space ()] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  isa! auto simp: HqHr_match_def.
+
+ # gin, gout, cstar
+ wp 3 3.
+ conseq post: ℭ𝔩𝔞[pk1 = pk2 ∧ H01 = H02 ∧ G1 = G2 ∧ cstar1 = cstar2 ∧ HqHr_match pk1 G1 Hq1 Hr1 Hq2 ∧ sk1 = sk2 ∧ H01 = H02 ∧ pk1 = pk2 ∧ classA1 = classA2 ∧ b1 = b2 & mstar1=mstar2 & mstar1 ∈ msg_space ()] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! encrT_def.
+
+ # mstar
+ rnd.
+ conseq post: ℭ𝔩𝔞[pk1 = pk2 ∧ H01 = H02 ∧ G1 = G2 ∧ cstar1 = cstar2 ∧ HqHr_match pk1 G1 Hq1 Hr1 Hq2 ∧ sk1 = sk2 ∧ H01 = H02 ∧ pk1 = pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! msg_spaceT_def.
+
+ # prfk
+ wp 1 1.
+ simp.
+ # Does not change postcondition
+ conseq post: ℭ𝔩𝔞[pk1 = pk2 ∧ H01 = H02 ∧ G1 = G2 ∧ cstar1 = cstar2 ∧ HqHr_match pk1 G1 Hq1 Hr1 Hq2 ∧ sk1 = sk2 ∧ H01 = H02 ∧ pk1 = pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # Move H0 before Hr,Hq
+ swap left 2 1.
+ swap right 2 1.
+
+ # Hq,Hr
+ squash left.
+ squash right.
+
+ rnd (Hq,Hr), (Hq,Hr) <- HqHr_joint_pick pk1 G1.
+ conseq post: ℭ𝔩𝔞[sk1 = sk2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ H01 = H02 ∧ gout1 = gout2 ∧ G1 = G2 ∧ pk1 = pk2 ∧ cstar1 = cstar2 ∧ Kstar1 = Kstar2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  isa! auto simp: HqHr_joint_pick_fst HqHr_joint_pick_snd HqHr_joint_pick_supp.
+
+ equal all.
+  simp!.
+
+ skip.
+ simp.
+qed.

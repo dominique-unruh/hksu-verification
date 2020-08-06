@@ -1,0 +1,9 @@
+include "lemma_scs_left_count.qrhl".
+include "lemma_scs_right_count.qrhl".
+
+# GRAPH: LEQ("scs_left_scs_right","scs_left","scs_right",uses=["scs_left_count","scs_right_count"])
+lemma scs_left_scs_right: Pr[Find:scs_left(rho)] <= 4 * real q * Pr[guess∈S:scs_right(rho)].
+ semiclassical.
+ rule scs_left_count.
+ rule scs_right_count.
+qed.

@@ -1,0 +1,16 @@
+include "variables.qrhl".
+
+program decapsQuery1 := {
+  if (c=cstar)
+  then
+    K' <- None;
+  else {
+    m' <- dec () sk c;
+    if (m'=None ∨ encrT G pk (the m') ≠ c) then
+      K' <- Some (Hr c);
+    else
+      K' <- Some (Hq c);
+  }
+}.
+
+

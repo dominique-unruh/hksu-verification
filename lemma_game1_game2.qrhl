@@ -1,0 +1,51 @@
+include "game1.qrhl".
+include "game2.qrhl".
+
+# GRAPH: EQ("game1_game2","game1", "game2")
+lemma game1_game2: Pr[b=1: game1(rho)] = Pr[b=1: game2(rho)].
+ byqrhl.
+ inline game1.
+ inline game2.
+
+ equal.
+  simp!.
+ conseq post: ℭ𝔩𝔞[in_cstar1 = in_cstar2 ∧ in_pk1 = in_pk2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # in_cstar1 in_pk cstar
+ wp 3 3.
+ conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ mstar1=mstar2 ∧ rstar1=rstar2 ∧ classA1=classA2 ∧ b1=b2 ∧ G1=G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # G
+ wp right.
+ conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ mstar1=mstar2 ∧ rstar1=rstar2 ∧ classA1=classA2 ∧ b1=b2 ∧ G1 = G2(mstar2 := rstar2)] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! fun_upd_def.
+
+ # rstar2 after G
+ swap right 1 2.
+
+ # rstar1
+ wp left.
+ conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ mstar1=mstar2 ∧ classA1=classA2 ∧ b1=b2 ∧ G1 = G2(mstar2 := rstar2)] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # mstar1, mstar2 to beginning
+ swap right 1 3.
+ swap left 1 2.
+
+ rnd.
+ conseq post: ℭ𝔩𝔞[mstar1=mstar2 ∧ classA1=classA2 ∧ b1=b2 ∧ G1 = G2(mstar2 := rstar2)] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # G,rstar
+ squash right.
+
+ rnd G, (G,rstar) <- map_distr (%(G,r). (G(mstar2:=r),(G,r))) (uniform UNIV).
+ conseq post: ℭ𝔩𝔞[mstar1=mstar2 ∧ classA1=classA2 ∧ b1=b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! program1 program2.
+
+ rnd.
+ skip.
+ simp!.
+qed.

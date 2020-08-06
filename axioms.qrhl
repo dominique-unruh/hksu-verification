@@ -1,0 +1,140 @@
+include "Adv_INDCCA_encFO.qrhl".
+include "decapsQuery1.qrhl".
+include "decapsQuery1_G.qrhl".
+include "decapsQuery2.qrhl".
+include "decapsQuery2_G.qrhl".
+include "decapsQuery2_adv_cstar.qrhl".
+include "queryH_Hq.qrhl".
+include "decapsQuery1_badpk.qrhl".
+include "queryG.qrhl".
+include "queryG'.qrhl".
+include "queryGmeasured.qrhl".
+include "queryGPuncturedS.qrhl".
+include "queryH.qrhl".
+include "Count.qrhl".
+
+# Axiom: adversary is lossless
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_lossless_dq2","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_lossless_dq2: {Cla[True]} call Adv_INDCCA_encFO(queryG,queryH,decapsQuery2); ~ skip; {Cla[True]}.
+ admit.
+qed.
+
+# Axiom: adversary is lossless
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_lossless_dq1","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_lossless_dq1: {Cla[True]} call Adv_INDCCA_encFO(queryG,queryH,decapsQuery1); ~ skip; {Cla[True]}.
+ admit.
+qed.
+
+# Axiom: adversary is lossless
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_lossless_bpk","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_lossless_bpk: {Cla[True]} call Adv_INDCCA_encFO(queryG,queryH,decapsQuery1_badpk); ~ skip; {Cla[True]}.
+ admit.
+qed.
+
+# Axiom: adversary is lossless
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_lossless_Gmeas_Hq_ac","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_lossless_Gmeas_Hq_ac: {Cla[True]} call Adv_INDCCA_encFO(Count(queryGmeasured),queryH_Hq(Count(queryGmeasured)),decapsQuery2_adv_cstar); ~ skip; {Cla[True]}.
+ admit.
+qed.
+
+# Axiom: adversary is lossless
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_lossless_Gmeas_Hq_dq1G","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_lossless_C_Gmeas_Hq_dq1G: {Cla[True]} call Adv_INDCCA_encFO(Count(queryGmeasured),queryH_Hq(Count(queryGmeasured)),decapsQuery1_G(Count(queryGmeasured))); ~ skip; {Cla[True]}.
+ admit.
+qed.
+
+# Axiom: adversary is lossless
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_lossless_Gmeas_Hq_dq2G","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_lossless_C_Gmeas_Hq_dq2G: {Cla[True]} call Adv_INDCCA_encFO(Count(queryGmeasured),queryH_Hq(Count(queryGmeasured)),decapsQuery2_G(Count(queryGmeasured))); ~ skip; {Cla[True]}.
+ admit.
+qed.
+
+# Axiom
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_countG","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_countG: {Cla[count1=0]} call Adv_INDCCA_encFO(Count(queryG),queryH_Hq(Count(queryG)),decapsQuery1); ~ skip; {Cla[count1 ≤ qG+2*qH]}.
+ admit.
+qed.
+
+# Axiom
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_countG_Hq_ac","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_countG_Hq_ac: {Cla[count1=0]} call Adv_INDCCA_encFO(Count(queryG),queryH_Hq(Count(queryG)),decapsQuery2_adv_cstar); ~ skip; {Cla[count1 ≤ qG+2*qH]}.
+ admit.
+qed.
+
+# Axiom
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_countG'_Hq_ac","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_countG'_Hq_ac: {Cla[count1=0]} call Adv_INDCCA_encFO(Count(queryG'),queryH_Hq(Count(queryG')),decapsQuery2_adv_cstar); ~ skip; {Cla[count1 ≤ qG+2*qH]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to G
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_decapsQuery1_G","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_decapsQuery1_G: {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryG),queryH_Hq(Count(queryG)),decapsQuery1_G(Count(queryG))); ~ skip; {Cla[count1 ≤ qG+2*qH+1+qD]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to G
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_decapsQuery2_G","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_decapsQuery2_G: {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryG),queryH_Hq(Count(queryG)),decapsQuery2_G(Count(queryG))); ~ skip; {Cla[count1 ≤ qG+2*qH+1+qD]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to G'
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_countG'","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_countG': {Cla[count1=0]} call Adv_INDCCA_encFO(Count(queryG'),queryH_Hq(Count(queryG')),decapsQuery1); ~ skip; {Cla[count1 ≤ qG+2*qH]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to G'
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_decapsQuery1_G'","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_decapsQuery1_G': {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryG'),queryH_Hq(Count(queryG')),decapsQuery1_G(Count(queryG'))); ~ skip; {Cla[count1 ≤ qG+2*qH+qD+1]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to G'
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_decapsQuery2_G'","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_decapsQuery2_G': {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryG'),queryH_Hq(Count(queryG')),decapsQuery2_G(Count(queryG'))); ~ skip; {Cla[count1 ≤ qG+2*qH+qD+1]}.
+ admit.
+qed.
+
+# Axiom
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_countGpunc","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_countGpunc: {Cla[count1=0]} call Adv_INDCCA_encFO(Count(queryGPuncturedS),queryH_Hq(Count(queryGPuncturedS)),decapsQuery1); ~ skip; {Cla[count1 ≤ qG+2*qH]}.
+ admit.
+qed.
+
+# Axiom
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_countGpunc_Hq_ac","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_countGpunc_Hq_ac: {Cla[count1=0]} call Adv_INDCCA_encFO(Count(queryGPuncturedS),queryH_Hq(Count(queryGPuncturedS)),decapsQuery2_adv_cstar); ~ skip; {Cla[count1 ≤ qG+2*qH]}.
+ admit.
+qed.
+
+# Axiom
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_countGmeas_Hq_ac","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_countGmeas_Hq_ac: {Cla[count1=0]} call Adv_INDCCA_encFO(Count(queryGmeasured),queryH_Hq(Count(queryGmeasured)),decapsQuery2_adv_cstar); ~ skip; {Cla[count1 ≤ qG+2*qH]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to Gpunctured
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_Gmeas_Hq_dq1G","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_Gmeas_Hq_dq1G_1: {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryGmeasured),queryH_Hq(Count(queryGmeasured)),decapsQuery1_G(Count(queryGmeasured))); ~ skip; {Cla[count1 ≤ qG+2*qH+qD+1]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to Gpunctured
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_Gmeas_Hq_dq2G","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_Gmeas_Hq_dq2G_1: {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryGmeasured),queryH_Hq(Count(queryGmeasured)),decapsQuery2_G(Count(queryGmeasured))); ~ skip; {Cla[count1 ≤ qG+2*qH+qD+1]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to Gpunctured
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_decapsQuery1_Gpunc","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_decapsQuery1_Gpunc: {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryGPuncturedS),queryH_Hq(Count(queryGPuncturedS)),decapsQuery1_G(Count(queryGPuncturedS))); ~ skip; {Cla[count1 ≤ qG+2*qH+qD+1]}.
+ admit.
+qed.
+
+# Axiom: adversary makes <= qG queries to Gpunctured
+# GRAPH: ONESIDED("Adv_INDCCA_encFO_count_decapsQuery2_Gpunc","Adv_INDCCA_encFO")
+qrhl Adv_INDCCA_encFO_count_decapsQuery2_Gpunc: {Cla[count1=1]} call Adv_INDCCA_encFO(Count(queryGPuncturedS),queryH_Hq(Count(queryGPuncturedS)),decapsQuery2_G(Count(queryGPuncturedS))); ~ skip; {Cla[count1 ≤ qG+2*qH+qD+1]}.
+ admit.
+qed.

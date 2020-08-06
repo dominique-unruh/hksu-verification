@@ -1,0 +1,26 @@
+include "lemma_encFO_indcca.qrhl".
+include "lemma_ds_encT_security2.qrhl".
+include "lemma_ds_encT_security2'.qrhl".
+
+lemma security_encFO: abs( Pr[b=1: indcca_encFO_0(rho)] - Pr[b=1: indcca_encFO_1(rho)] ) <=
+
+   abs ( Pr[b=1:PRF_real (rho)] - Pr[b=1:PRF_ideal (rho)] ) +
+   abs ( Pr[b=1:PRF_real'(rho)] - Pr[b=1:PRF_ideal'(rho)] ) +
+
+
+   abs (Pr[b=1:indcpa_enc0_0'''(rho)] - Pr[b=1:indcpa_enc0_1'''(rho)])
+   + 2 * sqrt(1+q) * sqrt( abs(Pr[b=1:indcpa_enc0_0''(rho)] - Pr[b=1:indcpa_enc0_1''(rho)]) + 4 * q / card (msg_space()) ) +
+
+
+   abs (Pr[b=1:indcpa_enc0_0'(rho)] - Pr[b=1:indcpa_enc0_1'(rho)])
+   + 2 * sqrt(1+q) * sqrt( abs(Pr[b=1:indcpa_enc0_0(rho)] - Pr[b=1:indcpa_enc0_1(rho)]) + 4 * q / card (msg_space()) ) +
+
+   8 * sqrt( 4 * (q+qD+2)
+                    * (q+qD+1) * correctness params0 keygen0 enc0 dec0 msg_space0)
+
+
+   + 2 * correctness params0 keygen0 enc0 dec0 msg_space0.
+
+ rule security_encFO_aux[OF ds_encT_security2' ds_encT_security2].
+ rule encFO_indcca.
+qed.

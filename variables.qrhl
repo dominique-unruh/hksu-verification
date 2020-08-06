@@ -1,0 +1,61 @@
+isabelle All.
+
+classical var pk : pk.
+classical var tmp_pk : pk.
+classical var in_pk : pk.
+classical var sk : sk.
+classical var m : msg.
+classical var m' : msg option.
+classical var c : ciph.
+classical var cstar : ciph.
+classical var in_cstar : ciph.
+classical var adv_cstar : ciph.
+classical var mstar : msg.
+classical var m0star : msg.
+classical var m1star : msg.
+classical var b : bit.
+ambient var rho : program_state.
+classical var G : msg => rand.
+classical var Gbad : msg => rand.
+classical var Ggood : msg => rand.
+classical var G' : msg => rand.
+quantum var Gin : msg.
+# For use when renaming Gin
+quantum var tmp_Gin : msg.
+quantum var Gout : rand.
+# For use when renaming Gout
+quantum var tmp_Gout : rand.
+quantum var Hin : msg.
+quantum var Hout : key.
+classical var rstar : rand.
+classical var Find : bool.
+classical var is_puncture : bit.
+classical var classA : string.
+quantum var quantA : string.
+classical var z : pk * ciph.
+classical var S : msg set.
+#classical var tmp_pk : pk.
+#classical var tmp_sk : sk.
+#classical var tmp_mstar : msg.
+classical var guess : msg.
+classical var stop_at : nat.
+classical var count : nat.
+classical var H : msg => key.
+classical var H0 : msg => key.
+classical var skfo : skfo.
+classical var Kstar : key.
+classical var K : key.
+classical var K' : key option.
+classical var Hr : ciph ⇒ key.
+classical var Hq : ciph ⇒ key.
+classical var prfk : prfkey.
+ambient var bad : bool.
+ambient var bb : bool.
+classical var RF : ciph ⇒ key.
+classical var F : msg => bit.
+classical var F' : msg => bit.
+classical var z' : pk * sk.
+classical var gin : msg.
+classical var gout : rand.
+#quantum var aux : infinite.
+quantum var tmp_aux : infinite.

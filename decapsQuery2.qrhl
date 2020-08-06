@@ -1,0 +1,11 @@
+include "variables.qrhl".
+
+# The difference to decapseQuery1 is: The "if (m'=None ∨ encrT G pk (the m') ≠ c)" is removed, i.e., we always assume that this condition does not hold.
+
+program decapsQuery2 := {
+  if (c=cstar)
+  then
+    K' <- None;
+  else
+    K' <- Some (Hq c);
+}.

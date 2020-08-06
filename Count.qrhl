@@ -1,0 +1,6 @@
+include "variables.qrhl".
+
+program Count(O) := {
+  call O;
+  count <- count + 1;
+}.

@@ -1,0 +1,10 @@
+include "game0FO.qrhl".
+include "lemma_indcca_encFO_0_PRF_real.qrhl".
+include "lemma_PRF_ideal_game0FO.qrhl".
+
+# GRAPH: RED("indcca_encFO_0_game0FO","indcca_encFO_0","game0FO",uses=["PRF_ideal_game0FO","indcca_encFO_0_PRF_real","ASSM_PRF_real_PRF_ideal"])
+lemma indcca_encFO_0_game0FO: 
+  abs ( Pr[b=1:indcca_encFO_0(rho)] - Pr[b=1:game0FO(rho)] )
+  ≤ abs ( Pr[b=1:PRF_real(rho)] - Pr[b=1:PRF_ideal(rho)] ).
+ simp PRF_ideal_game0FO indcca_encFO_0_PRF_real.
+qed.

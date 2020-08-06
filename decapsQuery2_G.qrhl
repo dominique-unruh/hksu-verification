@@ -1,0 +1,14 @@
+include "ClassicalQueryG.qrhl".
+
+program decapsQuery2_G(query) := {
+  local gin, gout;
+  if (c=cstar)
+  then
+    K' <- None;
+  else {
+    m' <- dec () sk c;
+    gin <- the m';
+    call ClassicalQueryG(query);
+    K' <- Some (Hq c);
+  }
+}.

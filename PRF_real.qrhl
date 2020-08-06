@@ -1,0 +1,13 @@
+include "Adv_PRF.qrhl".
+include "queryPRF.qrhl".
+
+# GRAPH: ASSM("ASSM_PRF_real_PRF_ideal", "PRF_real", "PRF_ideal")
+
+# Adv_PRF queries the PRF via variable c and gets result via variable k.
+# Outputs the guess in b.
+# Must not access prfk
+
+program PRF_real := {
+  prfk <$ keygenPRF;
+  call Adv_PRF(queryPRF);
+}.

@@ -1,0 +1,7 @@
+include "Adv_PRF.qrhl".
+include "queryRF.qrhl".
+
+program PRF_ideal := {
+  RF <$ uniform UNIV;
+  call Adv_PRF(queryRF);
+}.

@@ -1,0 +1,10 @@
+include "lemma_game0_ds_enc_fake.qrhl".
+include "lemma_game3_ds_enc_real.qrhl".
+
+# GRAPH: RED("game0_game3","game0", "game3", uses=["game0_ds_enc_fake","game3_ds_enc_real"])
+lemma game0_game3:
+   abs(Pr[b=1 : game0(rho)] - Pr[b=1 : game3(rho)])
+<= abs(Pr[b=1 : ds_enc_real(rho)] - Pr[b=1 : ds_enc_fake(rho)]).
+
+ simp! game0_ds_enc_fake game3_ds_enc_real.
+qed.

@@ -1,0 +1,8 @@
+include "game4FO.qrhl".
+include "game3FO'.qrhl".
+
+# GRAPH: EQ("game4FO_game3FO'","game4FO","game3FO'")
+
+lemma game4FO_game3FO': Pr[b=1 : game4FO(rho)] = Pr[b=1 : game3FO'(rho)].
+ simp game4FO_def game3FO'_def.
+qed.

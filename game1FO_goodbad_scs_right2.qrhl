@@ -1,0 +1,6 @@
+include "variables.qrhl".
+
+program game1FO_goodbad_scs_right2 := {
+  z' <$ keygenT undefined;
+  b <$ bernoulli (correctness_pksk enc dec msg_space () (fst z') (snd z'));
+}.

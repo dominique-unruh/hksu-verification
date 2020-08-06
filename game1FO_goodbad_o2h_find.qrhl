@@ -1,0 +1,10 @@
+include "Adv_O2H_Game1FO.qrhl".
+include "Count.qrhl".
+include "queryGPuncturedS.qrhl".
+
+program game1FO_goodbad_o2h_find := {
+  count <- 0;
+  (S,G,G',z') <$ goodbad_o2h_distr;
+  Find <- False;
+  call Adv_O2H_Game1FO(Count(queryGPuncturedS));
+}.

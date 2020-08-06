@@ -1,0 +1,21 @@
+include "variables.qrhl".
+include "Adv_INDCPA_enc_1.qrhl".
+include "Adv_INDCPA_enc_2.qrhl".
+
+# IND-CPA for enc and adv Adv_INDCPA_enc_1/2.
+
+# Adv_INDCPA_enc_1 gets in_pk and returns m0star, m1star
+# Adv_INDCPA_enc_2 gets in_pk, in_cstar, returns guess b
+# Adv_INDCPA_enc_* must not access pk, sk
+
+program indcpa_enc_0 := {
+  (pk,sk) <$ keygen ();
+  in_pk <- pk;
+  call Adv_INDCPA_enc_1;
+  m0star <- force_into (msg_space()) m0star;
+  m1star <- force_into (msg_space()) m1star;
+  cstar <$ enc () pk m0star;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_INDCPA_enc_2;
+}.

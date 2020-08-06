@@ -1,0 +1,11 @@
+include "Adv_DS_encT.qrhl".
+include "queryG.qrhl".
+
+program ds_encT_fake := {
+  G <$ uniform UNIV;
+  (pk,sk) <$ keygenT G;
+  cstar <$ fakeencT G pk;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_DS_encT(queryG);
+}.

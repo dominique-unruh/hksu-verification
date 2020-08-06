@@ -1,0 +1,18 @@
+include "lemma_game5_scs_left_unsquashed.qrhl".
+include "lemma_scs_left_unsquashed_scs_left.qrhl".
+include "lemma_scs_left_scs_right.qrhl".
+include "lemma_scs_right_scs_right_unsquashed.qrhl".
+include "lemma_scs_right_unsquashed_guess.qrhl".
+
+# GRAPH: ONESIDED("game5","game5",uses=["game5_scs_left_unsquashed","scs_left_unsquashed_scs_left","scs_left_scs_right","scs_right_scs_right_unsquashed","scs_right_unsquashed_guess"])
+lemma game5: Pr[Find:game5(rho)] <= 4 * real q / real (card (msg_space())).
+ isa subst game5_scs_left_unsquashed.
+ isa subst scs_left_unsquashed_scs_left.
+ rule order_trans[OF scs_left_scs_right].
+ isa subst scs_right_scs_right_unsquashed.
+ rule ord_le_eq_trans[where b="4 * real q * Pr[m=msg_space_element : guess_m(rho) ]"].
+ rule mult_left_mono.
+ rule scs_right_unsquashed_guess.
+ simp!.
+ simp! guessing_prob guess_m_def.
+qed.

@@ -1,0 +1,15 @@
+include "variables.qrhl".
+
+program decapsQueryPRF(query) := {
+  if (c=cstar)
+  then
+    K' <- None;
+  else {
+    m' <- dec () sk c;
+    if (m'=None ∨ encr () pk (the m') (G(the m')) ≠ c) then {
+      call query;
+      K' <- Some K;
+    } else
+      K' <- Some (H (the m'));
+  }
+}.

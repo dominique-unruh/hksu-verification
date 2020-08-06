@@ -1,0 +1,9 @@
+include "variables.qrhl".
+
+program decapsQuery2_adv_cstar := {
+  if (c=adv_cstar)
+  then
+    K' <- None;
+  else
+    K' <- Some (Hq c);
+}.

@@ -1,0 +1,26 @@
+include "guess_m.qrhl".
+include "scs_right_unsquashed.qrhl".
+include "lemma_Adv_SCS_Count_queryGmeasured_lossless.qrhl".
+
+# GRAPH: LEQ("scs_right_unsquashed_guess","scs_right_unsquashed","guess_m",uses="Adv_SCS_Count_queryGmeasured_lossless")
+lemma scs_right_unsquashed_guess: Pr[guess∈S : scs_right_unsquashed(rho)] ≤ Pr[m=msg_space_element : guess_m(rho) ].
+ byqrhl.
+ inline guess_m.
+ inline scs_right_unsquashed.
+ swap left 1 1.
+ wp left.
+ simp.
+ swap left 3 1.
+
+ rnd mstar,m <- map_distr (λm. (m, swap guess1 m)) (uniform (msg_space())).
+ simp.
+
+ seq 6 0: top.
+
+ wp left 6.
+ skip.
+ simp!.
+
+ # Losslessness
+ rule Adv_SCS_Count_queryGmeasured_lossless.
+qed.

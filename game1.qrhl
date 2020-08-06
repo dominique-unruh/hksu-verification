@@ -1,0 +1,13 @@
+include "Adv_DS_encT.qrhl".
+include "queryG.qrhl".
+
+program game1 := {
+  G <$ uniform UNIV;
+  (pk,sk) <$ keygen ();
+  mstar <$ uniform (msg_space ());
+  rstar <- G mstar;
+  cstar <- encr () pk mstar rstar;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_DS_encT(queryG);
+}.

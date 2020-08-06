@@ -1,0 +1,19 @@
+include "axioms.qrhl".
+include "Adv_DS_encT.qrhl".
+
+# GRAPH: ONESIDED("Adv_DS_encT_queryGmeasured_lossless","Adv_DS_encT", uses="Adv_INDCCA_encFO_lossless_Gmeas_Hq_ac")
+qrhl Adv_DS_encT_queryGmeasured_lossless: {top} call Adv_DS_encT(Count(queryGmeasured)); ~ skip; {top}. 
+
+ inline Adv_DS_encT.
+ local remove left.
+  simp!.
+
+ seq <-> 6 0: top.
+ conseq qrhl: Adv_INDCCA_encFO_lossless_Gmeas_Hq_ac.
+  simp!.
+  simp!.
+
+ wp 6 0.
+ skip.
+ simp.
+qed.

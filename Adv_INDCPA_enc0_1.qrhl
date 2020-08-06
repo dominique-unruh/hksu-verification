@@ -1,0 +1,9 @@
+include "Adv_INDCPA_enc_1.qrhl".
+
+program Adv_INDCPA_enc0_1 := {
+  call Adv_INDCPA_enc_1;
+  m0star <- force_into (msg_space()) m0star;
+  m1star <- force_into (msg_space()) m1star;
+}.
+
+print Adv_INDCPA_enc0_1.

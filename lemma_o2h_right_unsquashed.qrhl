@@ -1,0 +1,33 @@
+include "o2h_right.qrhl".
+include "o2h_right_unsquashed.qrhl".
+
+
+# GRAPH: EQ("o2h_right_unsquashed","o2h_right","o2h_right_unsquashed")
+lemma o2h_right_unsquashed: Pr[b=1:o2h_right(rho)] = Pr[b=1:o2h_right_unsquashed(rho)].
+ byqrhl.
+ inline o2h_right.
+ inline o2h_right_unsquashed.
+
+ # Adv_O2h
+ equal.
+  simp!.
+
+ # G,pk,sk,mstar,rstar,G',z,S
+ squash right.
+ squash right.
+ squash right.
+ squash right.
+ squash right.
+ squash right.
+
+ simp * o2h_distr0_def_sym.
+
+ rnd (S,G,G',z), (G,(pk,sk),mstar,rstar,G',z,S) <- 
+   map_distr (λ(G,(pk,sk),mstar,rstar,G',z,S). ((S,G,G',z), (G,(pk,sk),mstar,rstar,G',z,S))) o2h_distr0.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ count1 = count2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+ simp! o2h_distr_def case_prod_beta_abs_def.
+
+ wp 1 1.
+ skip.
+ simp!.
+qed.

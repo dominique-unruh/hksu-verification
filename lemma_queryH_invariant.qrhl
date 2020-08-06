@@ -1,0 +1,36 @@
+include "queryH_Hq.qrhl".
+include "queryG.qrhl".
+include "queryH.qrhl".
+
+# GRAPH: EQ("queryH_invariant","queryH","queryH_Hq")
+qrhl queryH_invariant:
+  {ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}
+          call queryH; ~ call queryH_Hq(queryG); 
+  {ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}.
+
+ inline queryH.
+ inline queryH_Hq.
+ inline queryG.
+
+ rename right: Gin->tmp_Gin, Gout->tmp_Gout.
+  simp!.
+
+ local remove right.
+  simp!.
+
+ seq 0 1: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, tmp_Gin2, tmp_Gout2⟧ ⊓ Span {ket 0}»⟦Gout2⟧.
+ wp right.
+ skip.
+ simp!.
+
+ seq 1 0: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ (Uoracle H1»⟦Hin1,Hout1⟧ · ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, tmp_Gin2, tmp_Gout2⟧) ⊓ Span {ket 0}»⟦Gout2⟧.
+ wp left.
+ skip.
+ simp!.
+
+ wp 0 5.
+ skip.
+
+ rule queryH_invariant_vc.
+ simp!.
+qed.

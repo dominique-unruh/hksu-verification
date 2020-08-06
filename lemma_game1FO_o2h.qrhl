@@ -1,0 +1,17 @@
+include "game1FO_goodbad_o2h_left.qrhl".
+include "game1FO_goodbad_o2h_right.qrhl".
+include "game1FO_goodbad_o2h_find.qrhl".
+
+include "lemma_game1FO_goodbad_o2h_left_count.qrhl".
+include "lemma_game1FO_goodbad_o2h_right_count.qrhl".
+include "lemma_game1FO_goodbad_o2h_find_count.qrhl".
+
+# GRAPH: O2H("game1FO_o2h","game1FO_goodbad_o2h_left","game1FO_goodbad_o2h_right","game1FO_goodbad_o2h_find",uses=["game1FO_goodbad_o2h_left_count","game1FO_goodbad_o2h_right_count","game1FO_goodbad_o2h_find_count"])
+lemma game1FO_o2h: abs ( Pr[b=1 : game1FO_goodbad_o2h_left(rho)] - Pr[b=1 : game1FO_goodbad_o2h_right(rho)] )
+             <= 2 * sqrt( (1+real (qG+2*qH+qD+1)) * Pr[Find : game1FO_goodbad_o2h_find(rho)] ).
+  o2h.
+  rule game1FO_goodbad_o2h_left_count.
+  rule game1FO_goodbad_o2h_right_count.
+  rule game1FO_goodbad_o2h_find_count.
+  simp goodbad_o2h_distr_oradiff.
+qed.

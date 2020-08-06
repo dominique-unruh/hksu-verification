@@ -1,0 +1,19 @@
+include "axioms.qrhl".
+include "Adv_DS_encT.qrhl".
+
+# GRAPH: ONESIDED("Adv_DS_encT_queryGmeasured_count","Adv_DS_encT",uses="Adv_INDCCA_encFO_countGmeas_Hq_ac")
+qrhl Adv_DS_encT_queryGmeasured_count: {Cla[count1=0]} call Adv_DS_encT(Count(queryGmeasured)); ~ skip; {Cla[count1≤q]}. 
+
+ inline Adv_DS_encT.
+ local remove left.
+  simp!.
+
+ seq <-> 6 0: Cla[count1=0].
+ conseq qrhl: Adv_INDCCA_encFO_countGmeas_Hq_ac.
+  simp!.
+  simp! q_def.
+
+ wp 6 0.
+ skip.
+ simp.
+qed.

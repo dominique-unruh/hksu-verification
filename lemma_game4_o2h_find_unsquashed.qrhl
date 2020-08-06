@@ -1,0 +1,52 @@
+include "game4.qrhl".
+include "o2h_find_unsquashed.qrhl".
+
+# GRAPH: EQ("game4_o2h_find_unsquashed","game4","o2h_find_unsquashed")
+lemma game4_o2h_find_unsquashed: Pr[Find:game4(rho)] = Pr[Find:o2h_find_unsquashed(rho)].
+ byqrhl.
+ inline game4.
+ inline o2h_find_unsquashed.
+ inline Adv_O2H.
+
+ # Strengthening postcondition to insert invariant S1=S2, G1=G2, is_puncture1=is_puncture2 in the following equal-tactic.
+ conseq post: ℭ𝔩𝔞[Find1=Find2 & S1=S2 & G1=G2 & is_puncture1=is_puncture2].
+  simp!.
+
+ # This one would be much harder if we had used queryGPuncturedMstar
+ equal.
+  simp!.
+  inline Count.
+  wp right.
+  equal.
+   simp!.
+  skip.
+  simp!.
+
+ conseq post: ℭ𝔩𝔞[Find1 = Find2 ∧ S1 = S2 ∧ G1 = G2 ∧ is_puncture1 = is_puncture2 ∧ in_cstar1 = in_cstar2 ∧ in_pk1 = in_pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # Find2 to beginning
+ swap right 9-9 8.
+
+ # in_cstar, in_pk, S
+ # Find2, z2, G'2, cstar1, pk
+ wp 4 5.
+ conseq post: ℭ𝔩𝔞[G1 = G2 ∧ is_puncture1 = is_puncture2 ∧ classA1 = classA2 ∧ b1 = b2 & pk1=pk2 & mstar1=mstar2 & rstar1=rstar2 & Find1=Find2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # rstar
+ rnd.
+ # mstar
+ rnd.
+ # pk,sk
+ rnd.
+ # G
+ rnd.
+ conseq post: ℭ𝔩𝔞[is_puncture1 = is_puncture2 ∧ classA1 = classA2 ∧ b1 = b2 & pk1=pk2 & Find1=Find2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # count2, Find
+ wp 1 2.
+ skip.
+ simp!.
+qed.

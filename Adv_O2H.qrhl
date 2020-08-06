@@ -1,0 +1,9 @@
+include "Adv_DS_encT.qrhl".
+
+# Input: z
+# Output: b
+program Adv_O2H(query) := {
+  (in_pk,in_cstar) <- z;
+  pk <- in_pk;
+  call Adv_DS_encT(query);
+}.

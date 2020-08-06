@@ -1,0 +1,15 @@
+include "Adv_INDCCA_encFO.qrhl".
+include "queryG.qrhl".
+include "queryH.qrhl".
+include "decapsQueryPRF.qrhl".
+
+program Adv_PRF'(query) := {
+  local G, H, pk, sk, Kstar, in_pk, in_cstar, m', K;
+  G,H <$ paramsFO;
+  pk,sk <$ keygenT G;
+  Kstar,cstar <$ encapsFO (G, H) pk;
+  Kstar <$ uniform UNIV;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_INDCCA_encFO(queryG,queryH,decapsQueryPRF(query));
+}.

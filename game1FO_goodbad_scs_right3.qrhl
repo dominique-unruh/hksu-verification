@@ -1,0 +1,5 @@
+include "variables.qrhl".
+
+program game1FO_goodbad_scs_right3 := {
+  b <$ bernoulli (correctness params keygen enc dec msg_space);
+}.

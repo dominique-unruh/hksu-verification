@@ -1,0 +1,31 @@
+include "game0.qrhl".
+include "ds_encT_fake.qrhl".
+
+# GRAPH: EQ("ds_encT_fake_game0","ds_encT_fake","game0")
+lemma ds_encT_fake_game0: Pr[b=1 : ds_encT_fake(rho)] = Pr[b=1 : game0(rho)].
+ byqrhl.
+ inline game0.
+ inline ds_encT_fake.
+
+ equal.
+  simp!.
+ conseq post: ℭ𝔩𝔞[in_cstar1 = in_cstar2 ∧ in_pk1 = in_pk2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ wp 2 2.
+ rnd.
+ conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! fakeencT_def.
+
+ wp right.
+ conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ rnd.
+ rnd.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! keygenT_def.
+
+ skip.
+ simp!.
+qed.

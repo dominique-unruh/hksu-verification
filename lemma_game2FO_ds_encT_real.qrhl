@@ -1,0 +1,110 @@
+include "ds_encT_real.qrhl".
+include "game2FO.qrhl".
+include "lemma_queryG_invariant.qrhl".
+include "lemma_queryH_invariant.qrhl".
+include "lemma_decapsQuery2_invariant.qrhl".
+
+# GRAPH: EQ("game2FO_ds_encT_real","game2FO","ds_encT_real",uses=["queryG_invariant","queryH_invariant","decapsQuery2_invariant"])
+lemma game2FO_ds_encT_real: Pr[b=1:game2FO(rho)] = Pr[b=1:ds_encT_real(rho)].
+ byqrhl.
+ inline game2FO.
+ inline ds_encT_real.
+ inline Adv_DS_encT.
+
+ conseq pre: ℭ𝔩𝔞[classA1 = classA2 & in_cstar1=in_cstar2 & in_pk1=in_pk2 & b1=b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ rename both: pk -> tmp_pk.
+ local up right.
+ local remove right.
+  simp!.
+
+ # for equal
+ conseq post: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2 ∧ b1=b2 & G1=G2 & Hq1=Hq2 & cstar1=adv_cstar2].
+  simp!.
+
+ # Adv_INDCCA_encFO(...)
+ equal exclude queryG
+       mid quantA, Hin, Hout, Gin, Gout.
+  simp!.
+
+  # queryG ~ queryG
+  conseq post: ℭ𝔩𝔞[G1=G2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ ℭ𝔩𝔞[classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 & cstar1=adv_cstar2 & Hq1=Hq2].
+   simp!.
+  conseq pre: ℭ𝔩𝔞[G1=G2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ ℭ𝔩𝔞[classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 & cstar1=adv_cstar2 & Hq1=Hq2].
+   simp!.
+  frame.
+   simp!.
+  rule queryG_invariant.
+
+  # queryH ~ queryH_Hq
+  conseq post: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ ℭ𝔩𝔞[classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 & cstar1=adv_cstar2 & Hq1=Hq2].
+   simp!.
+  conseq pre: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ ℭ𝔩𝔞[classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 & cstar1=adv_cstar2 & Hq1=Hq2].
+   simp!.
+  frame.
+   simp!.
+  rule queryH_invariant.
+
+  # decapsQuery2 ~ decapsQuery2_adv_cstar
+  conseq post: (ℭ𝔩𝔞[G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hq1 = Hq2 & cstar1=adv_cstar2 & c1=c2 & K'1=K'2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧) ⊓ Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & b1=b2 & classA1=classA2 & Kstar1=Kstar2].
+   simp!.
+  conseq pre: (ℭ𝔩𝔞[G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hq1 = Hq2 & cstar1=adv_cstar2 & c1=c2 & K'1=K'2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧) ⊓ Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & b1=b2 & classA1=classA2 & Kstar1=Kstar2].
+   simp!.
+  frame.
+   simp!.
+  conseq qrhl: decapsQuery2_invariant.
+   simp!.
+   simp!.
+
+ conseq post: ℭ𝔩𝔞[classA1=classA2 & b1=b2 & in_pk1=in_pk2 & in_cstar1=in_cstar2 & Kstar1=Kstar2 ∧ G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 & Hq1=Hq2 & cstar1=adv_cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # Hr,H0,Hq after G
+ swap right 7-9 5.
+
+ # in_cstar, in_pk, Kstar, adv_cstar
+ # ONLY NON PRIME:
+ wp 3 5.
+ # ONLY PRIME: wp 2 2.
+ # ONLY PRIME: rnd.
+ # ONLY PRIME: wp 0 2.
+ conseq post: ℭ𝔩𝔞[classA1=classA2 & b1=b2 & in_pk1=in_pk2 & in_cstar1=in_cstar2 ∧ G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 tmp_pk2 ∧ cstar1 = cstar2 ∧ Hq1 = Hq2 ∧ tmp_pk1=tmp_pk2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ rename both: tmp_pk -> pk.
+
+ # cstar
+ wp 1 1.
+ conseq post: ℭ𝔩𝔞[classA1=classA2 & b1=b2 & in_pk1=in_pk2 & in_cstar1=in_cstar2 ∧ G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 ∧ mstar1=mstar2 ∧ Hq1 = Hq2 ∧ pk1=pk2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # mstar
+ rnd.
+ conseq post: ℭ𝔩𝔞[classA1=classA2 & b1=b2 & in_pk1=in_pk2 & in_cstar1=in_cstar2 ∧ G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hq1 = Hq2 ∧ pk1=pk2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # H
+ wp left.
+ conseq post: ℭ𝔩𝔞[classA1=classA2 & b1=b2 & in_pk1=in_pk2 & in_cstar1=in_cstar2 ∧ G1 = G2 ∧ Hq1 = Hq2 & H01=H02 ∧ pk1=pk2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ rnd (pk,(sk,prfk)), (pk,sk) <- map_distr (λ(pk,(sk,prfk)). ((pk,(sk,prfk)),(pk,sk))) (keygenFO (G1,H1)).
+
+ conseq post: ℭ𝔩𝔞[classA1=classA2 & b1=b2 & in_pk1=in_pk2 & in_cstar1=in_cstar2 ∧ G1 = G2 ∧ Hq1 = Hq2 & H01=H02] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! case_prod_beta.
+
+ # Hq
+ rnd.
+ # H0
+ rnd.
+ # Hr
+ rnd.
+ # G
+ rnd.
+ conseq post: ℭ𝔩𝔞[classA1=classA2 & b1=b2 & in_pk1=in_pk2 & in_cstar1=in_cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ skip.
+ simp!.
+qed.

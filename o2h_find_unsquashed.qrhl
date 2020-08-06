@@ -1,0 +1,17 @@
+include "Adv_O2H.qrhl".
+include "queryGPuncturedS.qrhl".
+include "Count.qrhl".
+
+program o2h_find_unsquashed := {
+  count <- 0;
+  G <$ uniform UNIV;
+  (pk,sk) <$ keygen ();
+  mstar <$ uniform (msg_space ());
+  rstar <$ uniform UNIV;
+  G' <- G(mstar:=rstar);
+  z <- (pk, encr () pk mstar rstar);
+  S <- {mstar};
+  Find <- False;
+  call Adv_O2H(Count(queryGPuncturedS));
+}.
+

@@ -1,0 +1,104 @@
+include "lemma_game3FO_game4FO.qrhl".
+
+# GRAPH: LEQ("game3FO_geq_game4FO","game4FO","game3FO",uses="game3FO_game4FO")
+lemma game3FO_geq_game4FO: Pr[cstar ∈ (encrT G pk) ` msg_spaceT G | b=1 : game3FO(rho)] >= Pr[b=1: game4FO(rho)].
+ byqrhl.
+ sym.
+ conseq qrhl: game3FO_game4FO.
+  simp!.
+  simp!.
+qed.
+
+# GRAPH: LEQ("game3FO_leq_game4FO","game3FO","game4FO",uses="game3FO_game4FO")
+lemma game3FO_leq_game4FO: Pr[cstar ∉ (encrT G pk) ` msg_spaceT G & b=1 : game3FO(rho)] <= Pr[b=1: game4FO(rho)].
+ byqrhl.
+ conseq qrhl: game3FO_game4FO.
+  simp!.
+  simp!.
+qed.
+
+# GRAPH: O2H("game3FO_game4FO_bad","game3FO","game4FO","game3FO",uses=["game3FO_geq_game4FO","game3FO_leq_game4FO"])
+lemma game3FO_game4FO_bad: abs ( Pr[b=1 : game3FO(rho)] - Pr[b=1 : game4FO(rho)] ) <= Pr[cstar ∈ (encrT G pk) ` msg_spaceT G : game3FO(rho)].
+ rule equal_until_bad.
+ simp.
+ rule game3FO_geq_game4FO.
+ simp.
+ rule game3FO_leq_game4FO.
+qed.
+
+program bernoulli_disjointnessT := {
+ b <$ bernoulli disjointnessT;
+}.
+
+# GRAPH: LEQ("game3FO_bernoulli_disjointnessT","game3FO","bernoulli_disjointnessT",uses="Adv_INDCCA_encFO_lossless_dq2")
+lemma game3FO_bernoulli_disjointnessT:
+ Pr[cstar ∈ (encrT G pk) ` msg_spaceT G : game3FO(rho)] <= Pr[b=1 : bernoulli_disjointnessT(rho)].
+ byqrhl.
+
+ conseq pre: top.
+  simp!.
+
+ inline game3FO.
+ inline bernoulli_disjointnessT.
+
+ # Adv_INDCCA_encFO
+ seq <-> 11 1: ℭ𝔩𝔞[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1 ⟶ b2 = 1].
+
+ conseq post: Cla[True] ⊓ ℭ𝔩𝔞[cstar1 ∈ encrT G1 pk1 ` msg_spaceT G1 ⟶ b2 = 1].
+  simp!.
+ conseq pre: Cla[True] ⊓ ℭ𝔩𝔞[cstar1 ∈ encrT G1 pk1 ` msg_spaceT G1 ⟶ b2 = 1].
+  simp!.
+ frame.
+  simp!.
+
+ rule Adv_INDCCA_encFO_lossless_dq2.
+
+ # postcondition unchanged
+ # Kstar, in_pk, in_cstar
+ wp 3 0.
+
+ rnd cstar,b <- below_bernoulli (fakeenc () pk1) ((encrT G1 pk1) ` msg_spaceT G1) disjointnessT.
+
+ conseq post: Cla[G1 ∈ supp paramsT &
+                  (pk1, sk1) ∈ supp (keygenT G1)].
+  simp! below_bernoulli_supp min_absorb1 max_absorb1 Prob_leq_disjointnessT.
+
+ # H, mstar                  
+ wp 2 0.
+ conseq post: Cla[G1 ∈ supp paramsT ∧
+                  (pk1, sk1) ∈ supp (keygenT G1)].
+  simp!.
+
+ # pk,(sk,prfk)
+ wp left.
+ conseq post: Cla[G1 ∈ supp paramsT].
+  simp! paramsT_def keygenFO_def case_prod_beta.
+
+ # Hr, H0, Hq
+ wp 3 0.
+ conseq post: Cla[G1 ∈ supp paramsT].
+  simp!.
+ 
+ # G
+ wp left.
+ skip.
+ simp! paramsT_def.
+
+qed.
+
+# GRAPH: ONESIDED("bernoulli_disjointnessT_Pr","bernoulli_disjointnessT")
+lemma bernoulli_disjointnessT_Pr: disjointnessT = Pr[b=1 : bernoulli_disjointnessT(rho)].
+ simp! bernoulli_disjointnessT_def probability_sample bernoulli1.
+qed.
+
+# GRAPH: ONESIDED("game3FO_disjointness_Pr","game3FO",uses=["game3FO_bernoulli_disjointnessT","bernoulli_disjointnessT_Pr"])
+lemma game3FO_disjointness_Pr: Pr[cstar ∈ (encrT G pk) ` msg_spaceT G : game3FO(rho)] <= disjointnessT.
+ simp! game3FO_bernoulli_disjointnessT bernoulli_disjointnessT_Pr.
+qed.
+
+
+# GRAPH: CLOSE("game3FO_game4FO_dist", "game3FO", "game4FO",uses=["game3FO_game4FO_bad","game3FO_disjointness_Pr"])
+lemma game3FO_game4FO_dist: abs ( Pr[b=1 : game3FO(rho)] - Pr[b=1 : game4FO(rho)] ) <= disjointnessT.
+ rule order.trans[OF game3FO_game4FO_bad].
+ rule game3FO_disjointness_Pr.
+qed.

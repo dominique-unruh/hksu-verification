@@ -1,0 +1,8 @@
+include "variables.qrhl".
+
+program Adv_INDCPA_enc_1 := {
+  G <$ uniform UNIV;
+  mstar <$ uniform (msg_space ());
+  m0star <- msg_space_element;
+  m1star <- mstar;
+}.

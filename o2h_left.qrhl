@@ -1,0 +1,9 @@
+include "Adv_O2H.qrhl".
+include "queryG.qrhl".
+include "Count.qrhl".
+
+program o2h_left := {
+  count <- 0;
+  (S,G,G',z) <$ o2h_distr;
+  call Adv_O2H(Count(queryG));
+}.

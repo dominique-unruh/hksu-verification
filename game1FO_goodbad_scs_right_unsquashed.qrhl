@@ -1,0 +1,12 @@
+include "Adv_O2H_Game1FO.qrhl".
+include "queryGmeasured.qrhl".
+include "Count.qrhl".
+
+program game1FO_goodbad_scs_right_unsquashed := {
+  count <- 0;
+  stop_at <$ uniform {..<qG+2*qH+qD+1};
+  z' <$ keygenT undefined;
+  G <$ uniform {G. ∀m. G m ∈ Rgood' (fst z') (snd z') m};
+  S <$ Rbad_select (fst z') (snd z');
+  call Adv_O2H_Game1FO(Count(queryGmeasured));
+}.

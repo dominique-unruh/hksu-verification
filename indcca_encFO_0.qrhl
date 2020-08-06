@@ -1,0 +1,14 @@
+include "decapsQuery.qrhl".
+include "Adv_INDCCA_encFO.qrhl".
+include "queryG.qrhl".
+include "queryH.qrhl".
+
+# Oracles G,H are not explicitly given in paper
+program indcca_encFO_0 := {
+  (G,H) <$ paramsFO;
+  (pk,skfo) <$ keygenFO (G,H);
+  (Kstar,cstar) <$ encapsFO (G,H) pk;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_INDCCA_encFO(queryG,queryH,decapsQuery);
+}.

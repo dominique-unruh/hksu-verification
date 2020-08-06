@@ -1,0 +1,9 @@
+include "Adv_PRF'.qrhl".
+include "queryPRF.qrhl".
+
+# GRAPH: ASSM("ASSM_PRF_real'_PRF_ideal'", "PRF_real'", "PRF_ideal'")
+
+program PRF_real' := {
+  prfk <$ keygenPRF;
+  call Adv_PRF'(queryPRF);
+}.

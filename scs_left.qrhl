@@ -1,0 +1,10 @@
+include "Adv_SCS.qrhl".
+include "queryGPuncturedS.qrhl".
+include "Count.qrhl".
+
+program scs_left := {
+  count <- 0;
+  (S,G,z) <$ scs_distr;
+  Find <- False;
+  call Adv_SCS(Count(queryGPuncturedS));
+}.

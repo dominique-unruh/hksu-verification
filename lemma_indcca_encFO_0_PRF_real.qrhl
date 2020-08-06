@@ -1,0 +1,62 @@
+include "indcca_encFO_0.qrhl".
+include "PRF_real.qrhl".
+include "lemma_decapsQuery_decapsQueryPRF.qrhl".
+
+# GRAPH: EQ("indcca_encFO_0_PRF_real", "indcca_encFO_0", "PRF_real", uses="decapsQuery_decapsQueryPRF")
+lemma indcca_encFO_0_PRF_real: Pr[b=1:indcca_encFO_0(rho)] = Pr[b=1:PRF_real(rho)].
+ byqrhl.
+ inline indcca_encFO_0.
+ inline PRF_real.
+ inline Adv_PRF.
+
+ conseq pre: Cla[classA1=classA2 & b1=b2 & cstar1=cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ local up.
+ local remove right.
+  simp!.
+
+ conseq post: Cla[pk_of_sk sk2 = pk2 ∧ b1=b2 ∧ cstar1=cstar2 ∧ skfo1 = (sk2,prfk2)].
+  simp!.
+
+ equal mid quantA, Hin, Hout, Gin, Gout.
+  simp!.
+
+  conseq qrhl: decapsQuery_decapsQueryPRF.
+   simp!.
+   simp!.
+
+ conseq post: ℭ𝔩𝔞[pk_of_sk sk2 = pk2 ∧ cstar1 = cstar2 ∧ skfo1 = (sk2, prfk2) ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2 ∧ H1 = H2 ∧ Kstar1=Kstar2 ∧ in_pk1=in_pk2 & in_cstar1=in_cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # in_pk, in_cstar
+ wp 2 2.
+
+ # ONLY PRIME: # Kstar
+ # ONLY PRIME: rnd.
+ # ONLY PRIME: simp keyspaceFO_def.
+
+ # Kstar,cstar
+ rnd.
+ conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ pk_of_sk sk2 = pk2 ∧ skfo1 = (sk2, prfk2) ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2 ∧ H1 = H2 ∧ pk1=pk2 & cstar1=cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # G,H to beginning
+ swap right 2 1.
+
+ # prfk, pk, sk
+ squash right.
+ 
+ rnd (pk,skfo), ((pk,sk),prfk) <- map_distr (λ(pk,skfo). ((pk,skfo),((pk,fst skfo),snd skfo))) (keygenFO (G1,H2)).
+
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2 ∧ H1 = H2 & cstar1=cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp ! keygenFO_keygenT pk_of_sk_keygenFO case_prod_beta.
+
+ # G,H
+ rnd.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 & cstar1=cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp !.
+
+ skip.
+ simp!.
+qed.

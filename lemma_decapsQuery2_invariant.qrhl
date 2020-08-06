@@ -1,0 +1,16 @@
+include "decapsQuery2.qrhl".
+include "decapsQuery2_adv_cstar.qrhl".
+include "Adv_INDCCA_encFO.qrhl".
+
+# GRAPH: EQ("decapsQuery2_invariant","decapsQuery2","decapsQuery2_adv_cstar")
+qrhl decapsQuery2_invariant:
+  {ℭ𝔩𝔞[G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hq1 = Hq2 & cstar1=adv_cstar2 & c1=c2 & K'1=K'2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}
+          call decapsQuery2; ~ call decapsQuery2_adv_cstar; 
+  {ℭ𝔩𝔞[G1 = G2 ∧ H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hq1 = Hq2 & cstar1=adv_cstar2 & c1=c2 & K'1=K'2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}.
+
+ inline decapsQuery2.
+ inline decapsQuery2_adv_cstar.
+ wp 1 1.
+ skip.
+ simp!.
+qed.

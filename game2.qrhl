@@ -1,0 +1,16 @@
+include "Adv_DS_encT.qrhl".
+include "queryG.qrhl".
+
+# H(m) := G(m) for m<>m* and H(m*)=r*
+# We reuse variable G for H
+program game2 := {
+  G <$ uniform UNIV;
+  (pk,sk) <$ keygen ();
+  mstar <$ uniform (msg_space ());
+  rstar <$ uniform UNIV;
+  G <- G(mstar:=rstar);
+  cstar <- encr () pk mstar rstar;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_DS_encT(queryG);
+}.

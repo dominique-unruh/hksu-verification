@@ -1,0 +1,12 @@
+include "variables.qrhl".
+
+# gout <- G(gin)
+
+program ClassicalQueryG(query) := {
+  local Gin, Gout;
+  Gin <q ket gin;
+  Gout <q ket 0;
+  call query;
+  gout <- measure Gout with computational_basis;
+}.  
+

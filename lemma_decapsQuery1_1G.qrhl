@@ -1,0 +1,66 @@
+include "variables.qrhl".
+include "decapsQuery1.qrhl".
+include "decapsQuery1_G.qrhl".
+include "lemma_ClassicalQueryG_queryG.qrhl".
+
+# GRAPH: EQ("decapsQuery1_1G","decapsQuery1","decapsQuery1_G",uses="ClassicalQueryG_queryG")
+qrhl decapsQuery1_1G:
+  {Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & pk1=pk2 & Hq1=Hq2 & Hr1=Hr2] ⊓ ⟦quantA1,Gin1,Gout1,aux1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,aux2⟧} 
+    call decapsQuery1; ~ call decapsQuery1_G(queryG); 
+  {Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & pk1=pk2 & Hq1=Hq2 & Hr1=Hr2] ⊓ ⟦quantA1,Gin1,Gout1,aux1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,aux2⟧}.
+
+ inline decapsQuery1.
+ inline decapsQuery1_G.
+ local remove right.
+  simp!.
+
+ # Case c=cstar
+ if joint.
+  simp!.
+ 
+ # K' <- None
+ wp 1 1.
+ skip.
+ simp!.
+
+ # End case c=cstar
+
+ # Case c≠cstar
+
+ # split off if
+ seq <-> 1 3: ℭ𝔩𝔞[G1 = G2 ∧ sk1 = sk2 ∧ c1 = c2 ∧ cstar1 = cstar2 ∧ K'1 = K'2 ∧ Hr1 = Hr2 ∧ pk1 = pk2 & m'1=m'2 & gout2 = G2 (the m'2) & Hq1=Hq2 & m'1 = dec () sk1 c1] ⊓ ⟦quantA1, Gin1, Gout1, aux1⟧ ≡𝔮 ⟦quantA2, Gin2, Gout2, aux2⟧.
+
+ # Case (m' = None ∨ encrT G pk (the m') ≠ c)
+ if joint.
+  isa! auto simp: encrT_def.
+
+ # K' <- Some (Hr c)
+ wp 1 1.
+ skip.
+ simp!.
+ 
+ # End case
+   
+ # Case ¬ (m' = None ∨ encrT G pk (the m') ≠ c)
+ wp 1 1.
+ skip.
+ isa! auto dest: dec_msg_spaceI simp: encrT_def.
+
+ # call ClassicalQueryG
+ seq <-> 1 2: ⟦quantA1,Gin1,Gout1,aux1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,aux2⟧ ⊓ Cla[G1 = G2 ∧ sk1 = sk2 ∧ c1 = c2 ∧ cstar1 = cstar2 ∧ K'1 = K'2 ∧ Hr1 = Hr2 ∧ pk1 = pk2 ∧ m'1 = m'2 ∧ gin2 = the m'2 ∧ Hq1=Hq2 ∧ m'1 = dec () sk1 c1].
+ conseq post: (Cla[gout2 = G2 (gin2)] ⊓ ⟦quantA1,Gin1,Gout1,aux1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,aux2⟧) ⊓ Cla[G1 = G2 ∧ sk1 = sk2 ∧ c1 = c2 ∧ cstar1 = cstar2 ∧ K'1 = K'2 ∧ Hr1 = Hr2 ∧ pk1 = pk2 ∧ m'1 = m'2 ∧ gin2 = the m'2 ∧ Hq1=Hq2 ∧ m'1 = dec () sk1 c1].
+  simp!.
+ frame.
+  simp!.
+ rename both: Gin->tmp_Gin, Gout->tmp_Gout, aux->tmp_aux.
+  simp!.
+
+ conseq qrhl (aux->tmp_Gin,tmp_Gout,tmp_aux): ClassicalQueryG_queryG.
+  simp!.
+  simp!.
+  simp!.
+
+ wp 1 2.
+ skip.
+ isa! auto.
+qed.

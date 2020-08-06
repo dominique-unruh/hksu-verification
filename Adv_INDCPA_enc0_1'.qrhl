@@ -1,0 +1,11 @@
+include "variables.qrhl".
+
+# * Input pk
+# * Output m0star m1star
+
+program Adv_INDCPA_enc0_1' := {
+  m0star <$ uniform (msg_space ());
+  m1star <- puncture;
+}.
+
+print Adv_INDCPA_enc0_1'.

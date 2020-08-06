@@ -1,0 +1,17 @@
+include "Adv_INDCCA_encFO.qrhl".
+include "decapsQueryPRF.qrhl".
+include "decapsQuery0.qrhl".
+include "queryRF.qrhl".
+
+# GRAPH: EQ("decapsQueryRF_decapsQuery0","decapsQueryPRF","decapsQuery0")
+qrhl decapsQueryRF_decapsQuery0: 
+  {ℭ𝔩𝔞[pk1=pk2 & sk1=sk2 & cstar1=cstar2 & G1=G2 & H1=H2 & RF1=Hr2 & c1=c2 & K'1=K'2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}
+        call decapsQueryPRF(queryRF); ~ call decapsQuery0;
+  {ℭ𝔩𝔞[pk1=pk2 & sk1=sk2 & cstar1=cstar2 & G1=G2 & H1=H2 & RF1=Hr2 & c1=c2 & K'1=K'2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧}.
+ inline decapsQuery0.
+ inline decapsQueryPRF.
+ inline queryRF.
+ wp 1 1.
+ skip.
+ isa auto simp: encrT_def.
+qed.

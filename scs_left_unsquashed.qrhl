@@ -1,0 +1,15 @@
+include "Adv_SCS.qrhl".
+include "Count.qrhl".
+include "queryGPuncturedS.qrhl".
+
+program scs_left_unsquashed := {
+  count <- 0;
+  G <$ uniform UNIV;
+  (pk,sk) <$ keygen ();
+  mstar <$ uniform (msg_space ());
+  rstar <$ uniform UNIV;
+  z <- (pk, encr () pk msg_space_element rstar);
+  S <- {mstar};
+  Find <- False;
+  call Adv_SCS(Count(queryGPuncturedS));
+}.

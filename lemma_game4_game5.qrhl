@@ -1,0 +1,10 @@
+include "lemma_game4_indcpa_enc_1.qrhl".
+include "lemma_game5_indcpa_enc_0.qrhl".
+
+# GRAPH: RED("game4_game5", "game4", "game5", uses=["game4_indcpa_enc_1","game5_indcpa_enc_0"])
+lemma game4_game5:
+   abs(Pr[Find : game4(rho)] - Pr[Find : game5(rho)])
+<= abs(Pr[b=1 : indcpa_enc_0(rho)] - Pr[b=1 : indcpa_enc_1(rho)]).
+
+ simp! game4_indcpa_enc_1 game5_indcpa_enc_0.
+qed.

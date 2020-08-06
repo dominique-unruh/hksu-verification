@@ -1,0 +1,25 @@
+include "decapsQuery2_range.qrhl".
+include "Adv_INDCCA_encFO.qrhl".
+include "queryG.qrhl".
+include "queryH.qrhl".
+
+program game2FO_goodbad_range := {
+  count <- 0;
+  (S,G,G',z') <$ goodbad_o2h_distr;
+  pk,sk <- z';
+  Hr <$ uniform UNIV;
+  H0 <$ uniform UNIV;
+  Hq <$ uniform UNIV;
+  prfk <$ keygenPRF;
+  mstar <$ uniform (msg_spaceT undefined);
+  gin <- mstar;
+  gout <- G gin;
+  cstar <- encr () pk mstar gout;
+  Kstar <- Hq cstar;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  gin <- undefined;
+  gout <- undefined;
+  H <- mk_Hq Hq H0 G pk;
+  call Adv_INDCCA_encFO(queryG,queryH,decapsQuery2_range);
+}.

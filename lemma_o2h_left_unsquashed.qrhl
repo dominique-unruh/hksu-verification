@@ -1,0 +1,37 @@
+include "o2h_left_unsquashed.qrhl".
+include "o2h_left.qrhl".
+
+# GRAPH: EQ("o2h_left_unsquashed","o2h_left","o2h_left_unsquashed")
+lemma o2h_left_unsquashed: Pr[b=1:o2h_left(rho)] = Pr[b=1:o2h_left_unsquashed(rho)].
+ byqrhl.
+ inline o2h_left.
+ inline o2h_left_unsquashed.
+
+ # Adv_O2H
+ equal.
+  simp!.
+ conseq post: ℭ𝔩𝔞[z1 = z2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ count1 = count2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+# conseq post: ℭ𝔩𝔞[count1=count2 & (z1, in_cstar1, Hr1, Hq1, Kstar1, adv_cstar1, classA1, c1, K'1, b1) = (z2, in_cstar2, Hr2, Hq2, Kstar2, adv_cstar2, classA2, c2, K'2, b2) ∧ G1=G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+#  simp!.
+
+ # G,pk,sk,mstar,rstar,G',z,S
+ squash right.
+ squash right.
+ squash right.
+ squash right.
+ squash right.
+ squash right.
+
+ simp * o2h_distr0_def_sym.
+
+ rnd (S,G,G',z), (G,(pk,sk),mstar,rstar,G',z,S) <- 
+   map_distr (λ(G,(pk,sk),mstar,rstar,G',z,S). ((S,G,G',z), (G,(pk,sk),mstar,rstar,G',z,S))) o2h_distr0.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ count1 = count2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+ simp! o2h_distr_def case_prod_beta_abs_def.
+
+ # count
+ wp 1 1.
+ skip.
+ simp!.
+qed.

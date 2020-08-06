@@ -1,0 +1,11 @@
+include "variables.qrhl".
+
+# Inputs: in_pk, in_cstar, Kstar
+# Output: b
+# State: classA, quantA
+# Uses: Hin, Hout, Gin, Gout, K', c for oracle queries
+# Oracles: G, H, decaps
+print 1.
+adversary Adv_INDCCA_encFO free classA, quantA, b, in_pk, in_cstar, Kstar
+                           covered Hin, Hout, Gin, Gout, c, K'
+                           calls ?,?,?.

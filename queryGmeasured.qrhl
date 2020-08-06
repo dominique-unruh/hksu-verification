@@ -1,0 +1,10 @@
+include "queryG.qrhl".
+
+program queryGmeasured := {
+  if (count=stop_at) then
+    guess <- measure Gin with computational_basis;
+  else
+    skip;
+
+  call queryG;
+}.

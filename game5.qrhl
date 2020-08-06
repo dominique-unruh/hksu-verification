@@ -1,0 +1,18 @@
+include "Adv_DS_encT.qrhl".
+include "queryGPuncturedS.qrhl".
+
+program game5 := {
+  Find <- False;
+  G <$ uniform UNIV;
+  (pk,sk) <$ keygen ();
+  mstar <$ uniform (msg_space ());
+  rstar <$ uniform UNIV;
+  cstar <- encr () pk msg_space_element rstar;
+  S <- {mstar};
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_DS_encT(queryGPuncturedS);
+}.
+# return Find
+
+

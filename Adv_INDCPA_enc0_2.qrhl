@@ -1,0 +1,7 @@
+include "Adv_INDCPA_enc_2.qrhl".
+
+program Adv_INDCPA_enc0_2 := {
+  call Adv_INDCPA_enc_2;
+}.
+
+print Adv_INDCPA_enc0_2.

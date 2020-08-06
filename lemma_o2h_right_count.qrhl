@@ -1,0 +1,18 @@
+include "o2h_right.qrhl".
+include "Adv_DS_encT.qrhl".
+include "lemma_Adv_DS_encT_queryG'_count.qrhl".
+
+# GRAPH: ONESIDED("o2h_right_count","o2h_right",uses="Adv_DS_encT_queryG")
+lemma o2h_right_count: Pr[count<=q : o2h_right(rho)] = 1.
+ byqrhl.
+ inline o2h_right.
+ inline Adv_O2H.
+
+ seq 4 0: Cla[count1=0].
+  wp 4 0.
+  skip.
+  simp!.
+
+ simp.
+ rule Adv_DS_encT_queryG'_count.
+qed.

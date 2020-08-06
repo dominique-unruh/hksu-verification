@@ -1,0 +1,21 @@
+include "variables.qrhl".
+
+# tmp_Gout <q ket 0              ==> Hin=m, Hout=y, Gin=g1, Gout=g2, tmp_Gout=0
+# on Hin,Gin apply SWAP;         ==> Hin=g1, Hout=y, Gin=m, Gout=g2, tmp_Gout=0
+# on Gout,tmp_Gout apply SWAP;   ==> Hin=g1, Hout=y, Gin=m, Gout=0, tmp_Gout=g2
+# queryGG;                       ==> Hin=g1, Hout=y, Gin=m, Gout=G m, tmp_Gout=g2
+# on (Gin,Gout),Hout apply Uoracle (%(m,g). Hq (encr () pk m g)); ==> Hin=g1, Hout=y+Hq(encr() pk m (G m)), Gin=m, Gout=G m, tmp_Gout=g2
+# undo all but last              ==> Hin=m, Hout=y+Hq(encr() pk m (G m)), Gin=g1, Gout=g2, tmp_Gout=0
+
+program queryH_Hq(queryGG) := {
+  local Gin, Gout;
+  Gout <q ket 0;
+
+  on Hin,Gin apply comm_op;
+  call queryGG;
+
+  on (Gin,Gout),Hout apply Uoracle (%(m,g). mk_Hq' Hq H0 g pk m);
+
+  call queryGG;
+  on Hin,Gin apply comm_op;
+}.

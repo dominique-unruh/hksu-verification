@@ -1,0 +1,18 @@
+include "decapsQuery0.qrhl".
+include "decapsQuery1.qrhl".
+include "Adv_INDCCA_encFO.qrhl".
+
+# GRAPH: EQ("decapsQuery0_decapsQuery1","decapsQuery0","decapsQuery1")
+qrhl decapsQuery0_decapsQuery1:
+  {Cla[H2=mk_Hq Hq2 H02 G2 pk2 & H1=H2 & G1=G2 & cstar1=cstar2 & Hr1=Hr2 & sk1=sk2 & pk1=pk2 & c1=c2 & K'1=K'2]}
+    call decapsQuery0; ~ call decapsQuery1;
+  {Cla[H2=mk_Hq Hq2 H02 G2 pk2 & H1=H2 & G1=G2 & cstar1=cstar2 & Hr1=Hr2 & sk1=sk2 & pk1=pk2 & c1=c2 & K'1=K'2]}.
+
+ inline decapsQuery0.
+ inline decapsQuery1.
+
+ wp 1 1.
+ skip.
+ isa auto.
+ isa auto dest!: dec_msg_spaceI[OF sym] simp: msg_spaceT_def mk_Hq_def.
+qed.

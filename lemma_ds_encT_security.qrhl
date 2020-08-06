@@ -1,0 +1,36 @@
+# game0-game1 = DS advantage
+include "lemma_ds_encT_fake_game0.qrhl".
+include "ds_encT_real_game1.qrhl".
+
+# Shows: game0_game3 (bounds game0-game3 in terms of DS advantage of Adv_DS_enc).
+include "lemma_game0_game3.qrhl".
+
+# game1=game2, page 13 bottom
+include "lemma_game1_game2.qrhl".
+
+# abs(game2-game3) <= 2 sqrt(qg * Pr[Find:game4]).
+include "lemma_game2_game3.qrhl".
+
+# Pr[Find:game5] <= 4q/M
+include "lemma_game5.qrhl".
+
+# Shows game4_game5 (bounds game4-game5 in terms of IND-CPA advantage of Adv_INDCPA_enc).
+include "lemma_game4_game5.qrhl".
+
+# GRAPH: RED("ds_encT_security","ds_encT_real","ds_encT_fake", uses=["game4_game5","game5","ds_encT_real_game1","game1_game2","game2_game3","ds_encT_fake_game0","game0_game3"])
+lemma ds_encT_security: abs(Pr[b=1:ds_encT_real(rho)] - Pr[b=1 : ds_encT_fake(rho)]) <= 
+
+      abs(Pr[b=1 : ds_enc_real(rho)] - Pr[b=1 : ds_enc_fake(rho)])
+         + 2 * sqrt(1+real q) * sqrt( abs(Pr[b=1 : indcpa_enc_0(rho)] - Pr[b=1 : indcpa_enc_1(rho)]) + 4 * q / real (card (msg_space())) ).
+
+ rule combine_bounds[where ?game3.0 = "Pr[b=1  : game3(rho)]" and
+                           ?game4.0 = "Pr[Find : game4(rho)]" and
+                           ?game5.0 = "Pr[Find : game5(rho)]"].
+
+ # 1+q >= 0
+ simp!.
+ simp! game4_game5.
+ simp! game5.
+ simp! ds_encT_real_game1 game1_game2 game2_game3.
+ simp! ds_encT_fake_game0 game0_game3.
+qed.

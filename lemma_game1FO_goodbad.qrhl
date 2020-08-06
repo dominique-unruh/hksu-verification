@@ -1,0 +1,134 @@
+include "game1FO_goodbad.qrhl".
+include "game1FO.qrhl".
+include "lemma_ClassicalQueryG_queryG.qrhl".
+include "lemma_queryH_invariant.qrhl".
+include "lemma_decapsQuery1_1G.qrhl".
+
+# GRAPH: EQ("game1FO_goodbad","game1FO","game1FO_goodbad",uses="ClassicalQueryG_queryG")
+lemma game1FO_goodbad: Pr[b=1: game1FO(rho)] = Pr[b=1: game1FO_goodbad(rho)].
+ byqrhl.
+
+ inline game1FO.
+ inline game1FO_goodbad.
+
+ conseq post: Cla[b1=b2 & H1=mk_Hq Hq2 H02 G2 pk2 & G1=G2 & Hr1=Hr2 & cstar1=cstar2 & sk1=sk2 & pk1=pk2 & Hq1=Hq2].
+  simp!.
+
+ # Adv_INDCCA_encFO
+ equal mid quantA, Hin, Hout, Gin, Gout.
+  simp!.
+
+  # queryH ~ queryH_Hq
+  conseq post: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ ℭ𝔩𝔞[classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 & Hr1=Hr2 & cstar1=cstar2 & sk1=sk2 & pk1=pk2 & Hq1=Hq2].
+   simp!.
+  conseq pre: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ ℭ𝔩𝔞[classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 & Hr1=Hr2 & cstar1=cstar2 & sk1=sk2 & pk1=pk2 & Hq1=Hq2].
+   simp!.
+  frame.
+   simp!.
+  rule queryH_invariant.
+
+  # decapsQuery1 ~ decapsQuery1_G(queryG)
+  conseq post: Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & Hr1=Hr2 & pk1=pk2 & Hq1=Hq2] ⊓ ⟦quantA1,Gin1,Gout1,Hin1,Hout1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,Hin2,Hout2⟧ ⊓ Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & classA1=classA2 & H1 = mk_Hq Hq2 H02 G2 pk2 & b1=b2 & Kstar1=Kstar2 & pk1=pk2 & Hq1=Hq2].
+   isa! auto simp: reorder_qeq1.
+  conseq pre: Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & Hr1=Hr2 & pk1=pk2 & Hq1=Hq2] ⊓ ⟦quantA1,Gin1,Gout1,Hin1,Hout1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,Hin2,Hout2⟧ ⊓ Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & classA1=classA2 & H1 = mk_Hq Hq2 H02 G2 pk2 & b1=b2 & Kstar1=Kstar2 & pk1=pk2 & Hq1=Hq2].
+   isa! auto simp: reorder_qeq1.
+  frame.
+   simp!.
+  conseq qrhl (aux->Hin,Hout): decapsQuery1_1G.
+   simp!.
+   simp!.
+   simp!.
+
+ # End Adv_INDCCA_encFO
+
+
+ conseq post: Cla[H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # gin2, gout2
+ wp 0 2.
+ conseq post: Cla[H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # in_cstar, in_pk
+ wp 2 2.
+ conseq post: Cla[H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ Kstar1 = Kstar2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # Kstar
+ # ONLY NON PRIME:
+ wp 1 1.
+ # ONLY PRIME: rnd.
+ conseq post: Cla[H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # cstar
+ wp 1 1.
+ conseq post: Cla[mstar1=mstar2 & G1 mstar1=gout2 & H1=mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  isa! auto simp: encrT_def.
+
+ # skip ~ ClassicalQueryG(queryG)
+ seq <-> 7 11: Cla[mstar1=mstar2 & mstar1=gin2 & H1=mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+
+ # Reorder to make clear to frame rule what to remove
+ conseq pre: (⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧) ⊓ Cla[mstar1=mstar2 & mstar1=gin2 & H1=mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2].
+  simp!.
+
+ conseq post: (Cla[G2 gin2=gout2]  ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧) ⊓ Cla[mstar1=mstar2 & mstar1=gin2 & H1=mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2].
+  simp!.
+
+  frame.
+   simp.
+
+ conseq qrhl (aux->.): ClassicalQueryG_queryG.
+  simp!.
+  simp!.
+  simp!.
+
+ # End: skip ~ ClassicalQueryG(queryG)
+
+ # mstar, gin2
+ wp right.
+ rnd.
+ conseq post: Cla[H1 = mk_Hq Hq2 H02 G2 pk2 ∧ Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # H
+ wp left.
+ conseq post: Cla[Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1 = G2 & H01=H02] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # move G from beginning to here
+ simp * keygenFO_anyG.
+ swap left 2-5 1.
+
+ # squash Ggood, Gbad, S, G
+ squash right.
+ squash right.
+ squash right.
+
+ # G
+ simp * G_goodbad_squash_def[symmetric].
+ rnd G, (Ggood,Gbad,S,G) <- map_distr (λ(Ggood,Gbad,S,G). (G,(Ggood,Gbad,S,G))) (G_goodbad_squash pk2 sk2).
+
+ conseq post: Cla[Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ sk1 = sk2 ∧ pk1 = pk2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ H01 = H02] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! case_prod_beta G_goodbad_squash_4th.
+
+ # pk, sk, prfk
+ squash right.
+ rnd (pk,skfo), ((pk,sk),prfk) <- map_distr (λ(pk,skfo). ((pk,skfo),((pk,fst skfo),snd skfo))) (keygenFO (G1,H2)).
+
+ conseq post: Cla[Hr1 = Hr2 ∧ cstar1 = cstar2 ∧ Hq1 = Hq2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ H01 = H02] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp ! keygenFO_keygenT pk_of_sk_keygenFO case_prod_beta keygenT_def.
+
+ # Hr, H0, Hq
+ rnd.
+ simp.
+ rnd.
+ simp.
+ rnd.
+ skip.
+
+ simp!.
+
+qed.

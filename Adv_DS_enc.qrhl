@@ -1,0 +1,10 @@
+include "Adv_DS_encT.qrhl".
+include "queryG.qrhl".
+
+# * Input: in_pk in_cstar
+# * Output: b
+program Adv_DS_enc := {
+  local G;
+  G <$ uniform UNIV;
+  call Adv_DS_encT(queryG);
+}.

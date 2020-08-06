@@ -1,0 +1,18 @@
+include "Adv_DS_encT.qrhl".
+include "queryG.qrhl".
+
+# **Requirements:**
+#
+# * A accesses cstar, b, pk, Gin, Gout
+# * A does not access sk, m
+
+# DS indistiguishability game 0, for punc_enc, adversary A
+program ds_encT_real := {
+  G <$ uniform UNIV;
+  (pk,sk) <$ keygenT G;
+  mstar <$ uniform (msg_spaceT G);
+  cstar <$ encT G pk mstar;
+  in_pk <- pk;
+  in_cstar <- cstar;
+  call Adv_DS_encT(queryG);
+}.

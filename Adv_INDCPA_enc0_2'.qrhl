@@ -1,0 +1,7 @@
+include "Adv_DS_enc.qrhl".
+
+program Adv_INDCPA_enc0_2' := {
+  call Adv_DS_enc;
+}.
+
+print Adv_INDCPA_enc0_2'.

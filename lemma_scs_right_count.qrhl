@@ -1,0 +1,17 @@
+include "scs_right.qrhl".
+include "lemma_Adv_DS_encT_queryGmeasured_count.qrhl".
+
+# GRAPH: ONESIDED("scs_right_count", "scs_right", uses="Adv_DS_encT_queryGmeasured_count")
+lemma scs_right_count: Pr[count <= q : scs_right(rho)] = 1.
+ byqrhl.
+ inline scs_right.
+ inline Adv_SCS.
+
+ seq 5 0: Cla[count1=0].
+  wp 5 0.
+  skip.
+  simp!.
+
+ simp.
+ rule Adv_DS_encT_queryGmeasured_count.
+qed.

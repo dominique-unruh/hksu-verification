@@ -1,0 +1,20 @@
+include "variables.qrhl".
+
+# Change with respect to decapsQuery1: If bad_pk holds (and thus the
+# definition of G is not guaranteed to return good randomness), we
+# just patch the if-statement in decapsQuery1 to do just what we need
+# in the next proof step.
+
+program decapsQuery1_badpk := {
+  if (c=cstar)
+  then
+    K' <- None;
+  else {
+    m' <- dec () sk c;
+    if (if bad_pk pk sk then (c ∉ encrT G pk ` msg_space ()) else (m'=None ∨ encrT G pk (the m') ≠ c)) then
+      K' <- Some (Hr c);
+    else
+      K' <- Some (Hq c);
+  }
+}.
+

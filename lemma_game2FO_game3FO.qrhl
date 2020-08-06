@@ -1,0 +1,12 @@
+include "game2FO.qrhl".
+include "game3FO.qrhl".
+include "lemma_game2FO_ds_encT_real.qrhl".
+include "lemma_game3FO_ds_encT_fake.qrhl".
+
+# GRAPH: RED("game2FO_game3FO","game2FO","game3FO",uses=["game2FO_ds_encT_real","game3FO_ds_encT_fake"])
+lemma game2FO_game3FO:
+   abs(Pr[b=1 : game2FO(rho)] - Pr[b=1 : game3FO(rho)])
+<= abs(Pr[b=1 : ds_encT_real(rho)] - Pr[b=1 : ds_encT_fake(rho)]).
+
+ simp! game2FO_ds_encT_real game3FO_ds_encT_fake.
+qed.

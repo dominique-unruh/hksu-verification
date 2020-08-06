@@ -1,0 +1,78 @@
+include "game1FO_goodbad_badpk.qrhl".
+include "game2FO_goodbad_range.qrhl".
+
+# GRAPH: EQ("game1FO_game2FO_o2h", "game1FO_goodbad_badpk", "game2FO_goodbad_range")
+lemma game1FO_game2FO_o2h: Pr[b=1 : game1FO_goodbad_badpk(rho)] 
+                         = Pr[b=1 : game2FO_goodbad_range(rho)].
+ byqrhl.
+ inline game1FO_goodbad_badpk.
+ inline game2FO_goodbad_range.
+
+ # Invariant for equal below
+ conseq post: ℭ𝔩𝔞[b1 = b2 & sk1=sk2 & count1=count2 & cstar1=cstar2 & pk1=pk2 & G1=G2 & Rgood'G pk1 sk1 G1 & Hr1=Hr2 & Hq1=Hq2].
+  simp!.
+
+ # Adv_INDCCA_encFO
+ equal mid quantA, Hin, Hout, Gin, Gout.
+  simp!.
+
+  # decapsQuery1_G_badpk ~ decapsQuery2_G
+  inline decapsQuery1_badpk.
+  inline decapsQuery2_range.
+
+  if joint.
+   simp!.
+
+  # case "c = cstar"
+  wp 1 1.
+  skip.
+  isa! auto.
+
+  conseq post: ℭ𝔩𝔞[cstar1 = cstar2 ∧ sk1 = sk2 ∧ Rgood'G pk1 sk1 G1 & Rgood'G pk2 sk2 G2 ∧ classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ count1 = count2 ∧ G1 = G2 & Hq1=Hq2 & Hr1=Hr2 ∧ pk1 = pk2 & H1=H2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧.
+   simp!.
+
+  # case "c ≠ cstar"
+  # split off the "if (...) ~ K'"
+  seq <-> 1 0: ℭ𝔩𝔞[cstar1 = cstar2 ∧ sk1 = sk2 & m'1=dec () sk1 c1 & Rgood'G pk1 sk1 G1 ∧ classA1 = classA2 ∧ c1 = c2 ∧ K'1 = K'2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ count1 = count2 ∧ G1 = G2 ∧ Hq1 = Hq2 & Hr1=Hr2 ∧ pk1 = pk2 & H1=H2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧.
+
+  if joint.
+   isa! use guard_equal_not_in_range[of pk1 sk1 G1 c1] in auto.
+
+  # K' <- Some (Hr c)
+  wp 1 1.
+  skip.
+  isa! auto.
+
+  # K' <- Some (Hq c)
+  wp 1 1.
+  skip.
+  isa! auto.
+
+  # m'
+  wp left.
+  skip.
+  isa! auto.
+
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ count1 = count2 ∧ G1 = G2 ∧ Hq1 = Hq2 ∧ H01 = H02 ∧ pk1 = pk2 & cstar1=cstar2 & sk1=sk2 & Hr1=Hr2 & Rgood'G pk1 sk1 G1 & H1=H2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # Hr–H
+ equal 14.
+  simp!.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ count1 = count2 ∧ G1 = G2 ∧ pk1 = pk2 & sk1=sk2 & Rgood'G pk1 sk1 G1] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # pk,sk
+ wp 1 1.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ count1 = count2 ∧ G1 = G2 ∧ z'1=z'2 & gout1=gout2 & Rgood'G (fst z'1) (snd z'1) G1] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # goodbad_o2h_distr
+ rnd.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ count1 = count2 ∧ G1 = G2 ∧ gout1=gout2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  isa! auto simp: goodbad_o2h_distr_goodG.
+
+ wp 1 1.
+ skip.
+ simp.
+qed.

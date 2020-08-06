@@ -1,0 +1,42 @@
+include "ClassicalQueryG.qrhl".
+include "queryG.qrhl".
+
+# GRAPH: ONESIDED("ClassicalQueryG_queryG","ClassicalQueryG")
+qrhl ClassicalQueryG_queryG:
+ {top ⊓ ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧}
+   skip; ~ call ClassicalQueryG(queryG); 
+ {Cla[gout2 = G2(gin2)] ⊓ ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧}.
+
+ inline ClassicalQueryG.
+ inline queryG.
+
+ local remove right.
+  simp!.
+
+ # gout <- measure Gout
+ wp right.
+ conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧
+     ⊓ Span {ket (gin2, G2 gin2)}»⟦Gin2, Gout2⟧.
+  simp! aux5a aux5b.
+
+ # Uoracle G
+ wp right.
+ conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧ ⊓ Span {ket (gin2, 0)}»⟦Gin2, Gout2⟧.
+  simp! applyOpSpace_Span.
+
+ # Gout <q 0
+ wp right.
+ conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧
+  ⊓ Span {ket gin2}»⟦Gin2⟧.
+ rule aux6.
+  simp!.
+
+ # Gin <q gin
+ wp right.
+ conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧.
+  simp! leq_space_div.
+
+ skip.
+ simp!.
+qed.
+

@@ -1,0 +1,109 @@
+include "game3FO.qrhl".
+include "game4FO.qrhl".
+include "axioms.qrhl".
+
+# GRAPH: EQ("game3FO_game4FO","game3FO","game4FO",uses="Adv_INDCCA_encFO_lossless_dq2")
+qrhl game3FO_game4FO: {ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2] 
+                       ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧}
+     call game3FO; ~ call game4FO;
+     {Cla[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1] + Cla[b1 = b2]}.
+
+ conseq post: Cla[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1] + (Cla[b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧).
+  simp!.
+
+ inline game3FO.
+ inline game4FO.
+
+ # Adv_INDCCA_encFO
+ seq <-> 11 11: Cla[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1] + (ℭ𝔩𝔞[cstar1 = cstar2 ∧ (∀x≠cstar1. Hq1 x = Hq2 x) ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 ∧ H1 = H2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧).
+
+ case bad := cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1.
+ casesplit bad.
+
+ # Case: bad
+ conseq pre: Cla[True] ⊓ ℭ𝔩𝔞[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1].
+  simp!.
+ conseq post: Cla[True] ⊓ ℭ𝔩𝔞[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1].
+  simp!.
+ frame.
+  simp!.
+ seq 1 0: Cla[True].
+  conseq qrhl: Adv_INDCCA_encFO_lossless_dq2.
+   simp!.
+   simp!.
+
+  sym.
+  conseq qrhl: Adv_INDCCA_encFO_lossless_dq2.
+   simp!.
+   simp!.
+
+ # Case: ¬ bad
+ conseq post: ℭ𝔩𝔞[b1 = b2 ∧ cstar1=cstar2 ∧ (∀x≠cstar1. Hq1 x = Hq2 x)] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+ 
+ equal exclude decapsQuery2.
+  simp!.
+  inline decapsQuery2.
+  wp 1 1.
+  skip.
+  simp!.
+
+ skip.
+ simp!.
+
+ # End of Adv_INDCCA_encFO
+
+
+
+ # in_pk, in_cstar
+ wp 2 2.
+ conseq post: Cla[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1] + (ℭ𝔩𝔞[cstar1 = cstar2 ∧ (∀x≠cstar1. Hq1 x = Hq2 x) ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 ∧ H1 = H2 & pk1=pk2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧).
+  simp!.
+
+ # pk,(sk,prfk) before Hq, H0
+ swap left 5-5 2.
+ # cstar after pk,(sk,prfk)
+ swap left 8-8 4.
+ # Kstar after Hq, H0
+ swap left 9-9 2.
+
+ # pk,(sk,prfk) before Hq, H0
+ swap right 5-5 2.
+ # cstar after pk,(sk,prfk)
+ swap right 8-8 4.
+ # Kstar after Hq, H0
+ swap right 9-9 2.
+
+ # mstar
+ wp 1 1.
+ conseq post: Cla[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1] + (ℭ𝔩𝔞[cstar1 = cstar2 ∧ (∀x≠cstar1. Hq1 x = Hq2 x) ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 ∧ H1 = H2 & pk1=pk2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧).
+  simp!.
+
+ # H
+ wp 1 1.
+ conseq post: Cla[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1] + (ℭ𝔩𝔞[cstar1 = cstar2 ∧ (∀x≠cstar1. Hq1 x = Hq2 x) ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ Kstar1 = Kstar2 ∧ G1 = G2 ∧ pk1=pk2 & H01=H02] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧).
+  isa! auto simp: Hq1_Hq2.
+
+ # Hq,Kstar
+ squash left.
+ squash right.
+ rnd (Hq,Kstar),(Hq,Kstar) <- map_distr (λ(Hq,Kstar). ((Hq(cstar1:=Kstar),Kstar),(Hq,Kstar))) (product_distr (uniform UNIV) (uniform UNIV)).
+ conseq post: Cla[cstar1 ∈ (encrT G1 pk1) ` msg_spaceT G1] + (ℭ𝔩𝔞[cstar1 = cstar2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2 ∧ G1 = G2 ∧ pk1=pk2 & H01=H02] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧).
+  simp! case_prod_beta map_distr_Hq_Kstar.
+
+ # H0
+ rnd.
+ # cstar
+ rnd.
+ # pk,(sk,prfk)
+ rnd.
+ # Hr
+ rnd.
+ # G
+ rnd.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in_pk2 ∧ in_cstar1 = in_cstar2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ skip.
+ simp!.
+qed.

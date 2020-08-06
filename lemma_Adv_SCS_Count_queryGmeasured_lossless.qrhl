@@ -1,0 +1,16 @@
+include "Adv_SCS.qrhl".
+include "Count.qrhl".
+include "queryGmeasured.qrhl".
+include "lemma_Adv_DS_encT_queryGmeasured_lossless.qrhl".
+
+# GRAPH: ONESIDED("Adv_SCS_Count_queryGmeasured_lossless", "Adv_SCS", uses=["Adv_DS_encT_queryGmeasured_lossless"])
+qrhl Adv_SCS_Count_queryGmeasured_lossless: {top} call Adv_SCS(Count(queryGmeasured)); ~ skip; {top}.
+ inline Adv_SCS.
+ seq 2 0: top.
+
+ wp 2 0.
+ skip.
+ simp!.
+
+ rule Adv_DS_encT_queryGmeasured_lossless.
+qed.

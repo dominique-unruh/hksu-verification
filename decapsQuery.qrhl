@@ -1,0 +1,12 @@
+include "variables.qrhl".
+
+# AKE paper just says that c≠c* in Decaps. We interpret this as Decaps returning ⊥ otherwise.
+
+# Input c
+# Output K'
+program decapsQuery := {
+  if (c=cstar) then
+    K' <- None;
+  else
+    K' <- decapsFO (G,H) skfo c;
+}.

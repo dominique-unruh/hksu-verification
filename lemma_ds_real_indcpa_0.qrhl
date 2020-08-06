@@ -1,0 +1,48 @@
+include "ds_enc_real.qrhl".
+include "indcpa_enc0_0'.qrhl".
+
+# GRAPH: EQ("ds_real_indcpa_0","ds_enc_real","indcpa_enc0_0'")
+lemma ds_real_indcpa_0: Pr[b=1:ds_enc_real(rho)] = Pr[b=1:indcpa_enc0_0'(rho)].
+ byqrhl.
+ inline ds_enc_real.
+ inline indcpa_enc0_0'.
+ inline Adv_INDCPA_enc0_1'.
+ inline Adv_INDCPA_enc0_2'.
+
+ # Adv_DS_enc
+ equal.
+  simp!.
+ conseq post: ℭ𝔩𝔞[in_cstar1 = in_cstar2 ∧ in_pk1 = in_pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # in_pk, in_cstar
+ wp 2 2.
+ conseq post: ℭ𝔩𝔞[cstar1 = cstar2 ∧ pk1 = pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp!.
+
+ # cstar
+ rnd.
+ conseq post: ℭ𝔩𝔞[mstar1 = m0star2 ∧ pk1=pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! enc_def encr_def enc0_def.
+
+ # m1star, 2x force_into
+ wp right 3.
+ conseq post: ℭ𝔩𝔞[m0star2 ∈ msg_space0() ∧ mstar1 = m0star2 ∧ pk1=pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! force_into_good.
+
+ # mstar1, m0star2
+ rnd.
+ conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! aux1.
+
+ # in_pk2
+ wp right.
+
+ # pk,sk
+ rnd.
+ conseq post: ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.
+  simp! keygen_def.
+
+ skip.
+ simp!.
+qed.

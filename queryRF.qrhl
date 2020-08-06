@@ -1,0 +1,5 @@
+include "variables.qrhl".
+
+program queryRF := {
+  K <- RF c;
+}.

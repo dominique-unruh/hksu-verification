@@ -1,0 +1,25 @@
+include "Adv_O2H_Game1FO.qrhl".
+include "axioms.qrhl".
+
+qrhl Adv_O2H_Game1FO_lossless_C_Gmeas: {top} call Adv_O2H_Game1FO(Count(queryGmeasured)); ~ skip; {top}.
+
+ inline Adv_O2H_Game1FO.
+ 
+ # Adv_INDCCA_encFO
+ seq <-> 14 0: top. 
+ conseq qrhl: Adv_INDCCA_encFO_lossless_C_Gmeas_Hq_dq1G.
+  simp!.
+  simp!.
+
+ # The rest
+ inline ClassicalQueryG.
+ inline Count.
+ inline queryGmeasured.
+ inline queryG.
+ local up.
+ local remove left.
+  simp!.
+ wp left 19.
+ skip.
+ simp.
+qed.

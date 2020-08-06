@@ -1,0 +1,18 @@
+include "o2h_find.qrhl".
+include "Adv_DS_encT.qrhl".
+include "lemma_Adv_DS_encT_queryGPuncturedS_count.qrhl".
+
+# GRAPH: ONESIDED("o2h_find_count","o2h_find",uses="Adv_DS_encT_queryGPuncturedS_count")
+lemma o2h_find_count: Pr[count<=q : o2h_find(rho)] = 1.
+ byqrhl.
+ inline o2h_find.
+ inline Adv_O2H.
+
+ seq 5 0: Cla[count1=0].
+  wp 5 0.
+  skip.
+  simp!.
+
+ simp.
+ rule Adv_DS_encT_queryGPuncturedS_count.
+qed.

@@ -1,0 +1,6 @@
+include "variables.qrhl".
+
+# Called H in AKE-paper, trafo T proof. But this conflicts with the name H used in FO construction.
+program queryG' := {
+  on Gin,Gout apply (Uoracle G');
+}.

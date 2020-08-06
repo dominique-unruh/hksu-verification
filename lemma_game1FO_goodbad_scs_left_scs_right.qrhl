@@ -1,0 +1,12 @@
+include "game1FO_goodbad_scs_left.qrhl".
+include "game1FO_goodbad_scs_right.qrhl".
+
+include "lemma_game1FO_goodbad_scs_left_count.qrhl".
+include "lemma_game1FO_goodbad_scs_right_count.qrhl".
+
+# GRAPH: LEQ("game1FO_goodbad_scs_left_scs_right","game1FO_goodbad_scs_left","game1FO_goodbad_scs_right",uses=["game1FO_goodbad_scs_left_count","game1FO_goodbad_scs_right_count"])
+lemma game1FO_goodbad_scs_left_scs_right: Pr[Find:game1FO_goodbad_scs_left(rho)] <= 4 * real (qG+2*qH+qD+1) * Pr[guess∈S:game1FO_goodbad_scs_right(rho)].
+ semiclassical.
+ rule game1FO_goodbad_scs_left_count.
+ rule game1FO_goodbad_scs_right_count.
+qed.

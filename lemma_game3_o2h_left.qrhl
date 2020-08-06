@@ -1,0 +1,8 @@
+include "o2h_left.qrhl".
+include "lemma_game3_o2h_left_unsquashed.qrhl".
+include "lemma_o2h_left_unsquashed.qrhl".
+
+# GRAPH: EQ("game3_o2h_left","game3","o2h_left",uses=["game3_o2h_left_unsquashed","o2h_left_unsquashed"])
+lemma game3_o2h_left: Pr[b=1:game3(rho)] = Pr[b=1:o2h_left(rho)].
+ simp! game3_o2h_left_unsquashed o2h_left_unsquashed.
+qed.

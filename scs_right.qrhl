@@ -1,0 +1,10 @@
+include "Adv_SCS.qrhl".
+include "queryGmeasured.qrhl".
+include "Count.qrhl".
+
+program scs_right := {
+  count <- 0;
+  stop_at <$ uniform {..<q};
+  (S,G,z) <$ scs_distr;
+  call Adv_SCS(Count(queryGmeasured));
+}.

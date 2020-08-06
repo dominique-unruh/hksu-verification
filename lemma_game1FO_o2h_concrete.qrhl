@@ -1,0 +1,27 @@
+include "game1FO_goodbad_o2h_left.qrhl".
+include "game1FO_goodbad_o2h_right.qrhl".
+
+include "lemma_game1FO_o2h.qrhl".
+include "lemma_game1FO_find_scs_left.qrhl".
+include "lemma_game1FO_goodbad_scs_left_scs_right.qrhl".
+include "lemma_game1FO_goodbad_scs_right_unsquashed.qrhl".
+include "lemma_game1FO_goodbad_scs_right1.qrhl".
+include "lemma_game1FO_goodbad_scs_right2.qrhl".
+include "lemma_game1FO_goodbad_scs_right3.qrhl". 
+
+# GRAPH: CLOSE("game1FO_o2h_concrete","game1FO_goodbad_o2h_left","game1FO_goodbad_o2h_right", uses=["game1FO_o2h","game1FO_find_scs_left","game1FO_goodbad_scs_left_scs_right","game1FO_goodbad_scs_right_unsquashed","game1FO_goodbad_scs_right1","game1FO_goodbad_scs_right2","game1FO_goodbad_scs_right3","game1FO_goodbad_scs_right3_prob"])
+
+lemma game1FO_o2h_concrete:
+  abs ( Pr[b=1 : game1FO_goodbad_o2h_left(rho)] - Pr[b=1 : game1FO_goodbad_o2h_right(rho)] )
+             <= 2 * sqrt( 4 * (1+real (qG+2*qH+qD+1))
+                    * real (qG+2*qH+qD+1) * correctness params keygen enc dec msg_space).
+
+ rule order.trans[OF game1FO_o2h].
+ rule aux7.
+ simp game1FO_find_scs_left.
+ rule order.trans[OF game1FO_goodbad_scs_left_scs_right].
+ rule aux8.
+ simp game1FO_goodbad_scs_right_unsquashed.
+ rule order.trans[OF game1FO_goodbad_scs_right1].
+ simp! game1FO_goodbad_scs_right2 game1FO_goodbad_scs_right3 game1FO_goodbad_scs_right3_prob.
+qed.

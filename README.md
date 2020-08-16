@@ -1,5 +1,6 @@
 This repository contains the formalized proofs from the paper
-"Post-Quantum Verification of Fujisaki-Okamoto" by Dominique Unruh.
+"Post-Quantum Verification of Fujisaki-Okamoto" by Dominique Unruh
+(https://eprint.iacr.org/2020/962).
 
 
 

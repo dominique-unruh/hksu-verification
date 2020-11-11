@@ -103,7 +103,7 @@ proof (rule local_defE[of "bind_distr \<mu> f"], rename_tac B, insert assms, tra
     using summable by (rule infsetsum_swap)
   also have "\<dots> = (\<Sum>\<^sub>ax. \<mu> x * (\<Sum>\<^sub>ay. f x y))"
     apply (subst infsetsum_cmult_right; simp)
-    using not_summable_infsetsum_eq weightfx by fastforce
+    using not_summable_infsetsum_eq weightfx by force
   also have "\<dots> = (\<Sum>\<^sub>ax. \<mu> x * 1)"
     by (rule infsetsum_cong; auto intro!: weightfx)
   also have "\<dots> = 1"
@@ -159,7 +159,7 @@ lemma game2_witness_supp: "supp game2_witness \<subseteq> {((G1,(pk1,sk1),mstar1
 
 lemma leq_INFv[simp]:
   fixes V :: "'a \<Rightarrow> 'b subspace"
-  shows "(A \<le> (INF x:M. V x)) = (\<forall>x\<in>M. A \<le> V x)"
+  shows "(A \<le> (INF x\<in>M. V x)) = (\<forall>x\<in>M. A \<le> V x)"
   by (simp add: le_Inf_iff)
 
 lemma triangle: "abs(a-b) \<le> (x::real) \<Longrightarrow> abs(b-c) \<le> y \<Longrightarrow> abs(c-a) \<le> x+y"

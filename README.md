@@ -6,25 +6,20 @@ This repository contains the formalized proofs from the paper
 
 ## Installing qrhl-tool
 
-To execute the proofs, you need the qrhl-tool version 0.5. You need
-Linux to run that tool.
+To execute the proofs, you need the qrhl-tool version 0.6.
+It supports Linux, OS/X, and Windows.
+
+(As an alternative to the following installation instructions, Linux shell script `quick-test.sh`.
+See the comments in that file.)
 
 The binary distribution is available here:
-https://github.com/dominique-unruh/qrhl-tool/releases/download/v0.5/qrhl.zip
+https://github.com/dominique-unruh/qrhl-tool/releases/download/v0.6/qrhl.zip
 
-To install, simply unpack the archive. This will create a directory
-named qrhl-0.5. In the following, let QRHL-DIR denote the full (or
-relative) path to that directory.
+For installation instructions, see the
+[README](https://github.com/dominique-unruh/qrhl-tool/blob/v0.6/README.md)
+of qrhl-tool. 
 
-We have tested this version of qrhl-tool with Ubuntu 19.10 and 20.04,
-Java 11 and 13, and Emacs 26.
-
-For more information, see the
-[README](https://github.com/dominique-unruh/qrhl-tool/blob/v0.5/README.md)
-of qrhl-tool.
-
-qrhl-tool will required about 2GB of disk space (including files
-created during the first run which will also be stored inside QRHL-DIR).
+In the following, let `QRHL-DIR` denote the installation directory of qrhl-tool.
 
 You can check whether the tool works correctly by running
 
@@ -37,7 +32,6 @@ contributed theory files). This will take *very* long. (About 1 hour
 on our Intel Core i7 @ 3.4GHz with 12 GB RAM.)  During that initial
 build, do not start a second instance of the qrhl-tool or Isabelle/HOL
 (using any of the three methods below).
-
 
 
 ## Installing the proofs

@@ -28,7 +28,6 @@ Hq2 H02 g pk2 m)\<guillemotright>variable_concat \<lbrakk>Gin2, Gout2\<rbrakk> \
   sorry
 
 (*
-  
 proof (cases ?class)
   case True
   (* define cla where "cla = ((classA1, c1, K'1, b1, in_pk1, in_cstar1, Kstar1) = (classA2, c2, K'2, b2, in_pk2, in_cstar2, Kstar2) \<and> G1 = G2 \<and> H1 = (\<lambda>m. Hq2 (encrT G2 pk2 m)) \<and> Hq1 = Hq2 \<and> cstar1 = adv_cstar2)" *)
@@ -74,12 +73,12 @@ proof (cases ?class)
     apply (subst unitary_image, simp)+
     apply (simp only: inf_top_left inf_top_right)
     apply (simp only: adjoint_lift adj_comm_op Uoracle_selfadjoint times_adjoint)
-    apply (simp only: timesOp_assoc_linear_space[symmetric] timesOp_assoc[symmetric])
+    apply (simp only: timesOp_assoc_clinear_space[symmetric] timesOp_assoc[symmetric])
     by (simp only: qeq_def)
 
   have move: "S \<le> U* \<cdot> T" if "U \<cdot> S \<le> T" and [simp]: "unitary U" for T :: "'z subspace" and U and S :: "'y subspace"
     using applyOpSpace_mono[OF that(1), where A="U*"]
-    by (simp flip: timesOp_assoc_linear_space)
+    by (simp flip: timesOp_assoc_clinear_space)
 
   let ?h2 = "Uoracle H1\<guillemotright>\<lbrakk>Hin2, Hout2\<rbrakk>"
 
@@ -201,7 +200,6 @@ next
     apply (simp only: False classical_false inf_bot_left)
     by simp
 qed
-
 *)
 
 end

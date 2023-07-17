@@ -18,9 +18,7 @@ proof -
   have correctness_pksk: "correctness_pksk encT decT msg_spaceT G pk sk = (if (\<exists>m\<in>msg_spaceT G. decT G sk (encrT G pk m) \<noteq> Some m) then 1 else 0)" for G pk sk
     unfolding correctness_pksk_def correctness_pkskm_def encT_def
     apply (subst cSup_eq_Max)
-      apply (auto simp: msg_spaceT_def)
-    apply (smt Max_ge Max_in equals0D finite finite_imageI image_iff indicator_def mem_Collect_eq)
-    by (metis (mono_tags, lifting) Max_in finite finite_imageI imageE image_is_empty msg_spaceT_def nonempty_msg_space)
+    by (auto simp: msg_spaceT_def indicator_def intro!: Max_eqI)
 
   have KEMcorr_good: "KEMcorr (G, H) pk (sk, prfk) = 0" if "\<And>m. m\<in>msg_spaceT G \<Longrightarrow> decT G sk (encrT G pk m) = Some m"
     for G H pk sk prfk

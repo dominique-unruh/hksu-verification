@@ -113,7 +113,7 @@ proof -
     by (subst lift_tensorOp[symmetric], simp_all)
   have "(assoc_op* \<cdot> Uoracle H \<otimes> idOp \<cdot> assoc_op) \<cdot> (assoc_op* \<cdot> (Uoracle H* \<otimes> idOp \<cdot> assoc_op)) = 
         assoc_op* \<cdot> (Uoracle H \<otimes> idOp \<cdot> (assoc_op \<cdot> assoc_op*) \<cdot> Uoracle H* \<otimes> idOp) \<cdot> assoc_op"
-    by (simp only: timesOp_assoc)
+    by (simp only: cblinfun_compose_assoc)
   also have "\<dots> = idOp"
     by simp
   finally have cancel: "(assoc_op* \<cdot> Uoracle H \<otimes> idOp \<cdot> assoc_op) \<cdot> (assoc_op* \<cdot> (Uoracle H* \<otimes> idOp \<cdot> assoc_op)) = idOp"
@@ -223,7 +223,7 @@ lemma
     and Q :: "'a::universe variables"    and R :: "'b::universe variables"    and T :: "'d variables"
   assumes "distinct_qvars (variable_concat Q (variable_concat R T))"
   assumes "norm \<psi> = 1"
-  shows "quantum_equality_full V R U Q \<sqinter> Span {\<psi>}\<guillemotright>T
+  shows "quantum_equality_full V R U Q \<sqinter> ccspan {\<psi>}\<guillemotright>T
              = quantum_equality_full (addState \<psi> \<cdot> V) R (U \<otimes> idOp) (variable_concat Q T)"
 proof -
   from assms(1) have [simp]: "distinct_qvars (variable_concat T Q)"
@@ -713,9 +713,9 @@ lemma comm_op_Gin2_tmp_Gin2':
 lemma aux5a:
   assumes [simp]: "declared_qvars \<lbrakk>quantA1, quantA2, Gout2, Gin2, aux1, aux2\<rbrakk>"
   shows "\<lbrakk>quantA1,aux1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2,aux2\<rbrakk> 
-        \<sqinter> Span {ket (gin2, G2 gin2)}\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk> 
+        \<sqinter> ccspan {ket (gin2, G2 gin2)}\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk> 
     \<le> \<lbrakk>quantA1,aux1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2,aux2\<rbrakk> 
-      \<sqinter> Span {ket (G2 gin2)}\<guillemotright>\<lbrakk>Gout2\<rbrakk> \<squnion> (- Span {ket (G2 gin2)})\<guillemotright>\<lbrakk>Gout2\<rbrakk>"
+      \<sqinter> ccspan {ket (G2 gin2)}\<guillemotright>\<lbrakk>Gout2\<rbrakk> \<squnion> (- ccspan {ket (G2 gin2)})\<guillemotright>\<lbrakk>Gout2\<rbrakk>"
   apply (rule sup.coboundedI1)
   apply (rule inf_mono)
    apply simp
@@ -725,13 +725,13 @@ lemma aux5a:
 lemma aux5b:
   assumes [simp]: "declared_qvars \<lbrakk>quantA1, quantA2, Gout2, Gin2, aux1, aux2\<rbrakk>"
   shows "x \<noteq> G2 gin2 \<Longrightarrow> \<lbrakk>quantA1,aux1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2,aux2\<rbrakk> 
-        \<sqinter> Span {ket (gin2, G2 gin2)}\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk> \<le> (- Span {ket x})\<guillemotright>\<lbrakk>Gout2\<rbrakk>"
+        \<sqinter> ccspan {ket (gin2, G2 gin2)}\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk> \<le> (- ccspan {ket x})\<guillemotright>\<lbrakk>Gout2\<rbrakk>"
   apply (rule inf.coboundedI2)
   apply (rule order_trans)
    apply (rule ket_less_specific)
    apply simp
   apply simp
-  apply (rule span_ortho_span)
+  apply (rule ccspan_leq_ortho_ccspan)
   by simp
 
 (* lemma variable_for_name[intro]: "variable_name (Abs_variable (Abs_variable_raw (name,range (embedding::'a\<Rightarrow>_))) :: 'a::universe variable) = name"
@@ -747,8 +747,8 @@ lemma aux5b:
 
 lemma aux6:
   assumes [simp]: "declared_qvars \<lbrakk>quantA1, quantA2, Gout2, Gin2, aux1, aux2\<rbrakk>"
-  shows "\<lbrakk>quantA1,aux1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2,aux2\<rbrakk> \<sqinter> Span {ket gin2}\<guillemotright>\<lbrakk>Gin2\<rbrakk> \<le> \<CC>\<ll>\<aa>[\<parallel>ket 0\<parallel> = 1] \<sqinter> (\<lbrakk>quantA1,aux1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2,aux2\<rbrakk> \<sqinter> Span {ket (gin2, 0)}\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk>) \<div> ket 0\<guillemotright>\<lbrakk>Gout2\<rbrakk>"
-  apply (auto intro: inf.coboundedI2 inf.coboundedI1)
+  shows "\<lbrakk>quantA1,aux1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2,aux2\<rbrakk> \<sqinter> ccspan {ket gin2}\<guillemotright>\<lbrakk>Gin2\<rbrakk> \<le> \<CC>\<ll>\<aa>[\<parallel>ket 0\<parallel> = 1] \<sqinter> (\<lbrakk>quantA1,aux1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2,aux2\<rbrakk> \<sqinter> ccspan {ket (gin2, 0)}\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk>) \<div> ket 0\<guillemotright>\<lbrakk>Gout2\<rbrakk>"
+  apply (auto intro: inf.coboundedI2 inf.coboundedI1 simp: ket_product)
   apply (subst inf_commute, subst inf_assoc, rule inf.coboundedI2, subst inf_commute)
   apply (subst tensor_lift[symmetric], simp)
   apply (subst span_tensor)
@@ -760,7 +760,6 @@ lemma [simp]: "{..<n} = {} \<longleftrightarrow> n=0" for n :: nat
 lemma correctness_pksk_enc_leq1[simp]: "correctness_pksk enc dec msg_space p pk sk \<le> 1"
   apply (rule correctness_pksk_leq1)
   by auto
-
 
 lemma Prob_Rbad_select: "Prob (Rbad_select pk sk) (Collect ((\<in>) guess2)) = \<delta>bad pk sk guess2"
 proof -

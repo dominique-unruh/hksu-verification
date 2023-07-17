@@ -14,19 +14,21 @@ lemma game2FO'_goodbad_o2h_left': Pr[b=1: game2FO'_goodbad_o2h_left(rho)] = Pr[b
  inline game2FO'_goodbad_o2h_left'.
 
  conseq post: Cla[b1=b2 & G1=G2].
-  simp!.
+ { simp!.
+ }
 
  equal.
-  simp!.
+ 1,2: {
+ + simp!.
+ + inline Count.
+   wp left.
 
-  inline Count.
-  wp left.
+   equal.
+     simp!.
 
-  equal.
+   skip.
    simp!.
-
-  skip.
-  simp!.
+ }
 
  equal.
   simp!.

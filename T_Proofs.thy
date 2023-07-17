@@ -73,42 +73,46 @@ proof (rule local_defE[of "bind_distr \<mu> f"], rename_tac B, insert assms, tra
   assume \<mu>: "is_distribution \<mu>"
   then have \<mu>pos: "\<mu> x \<ge> 0" for x by (simp add: is_distribution_def)
   assume f: "pred_fun \<top> is_distribution f"
-  then have sumf: "sum (f x) M \<le> 1" if "finite M" for x M using that apply auto
-    by (meson abs_summable_on_finite is_distribution_def order_trans_rules(23) sum_leq_infsetsum top_greatest)
-  assume 3: "infsetsum \<mu> UNIV = 1 \<and> (\<forall>x\<in>{x. 0 < \<mu> x}. infsetsum (f x) UNIV = 1)"
-  then have weight\<mu>: "infsetsum \<mu> UNIV = 1"  by simp
-  from \<mu> \<mu>pos have weightfx: "\<mu> x \<noteq> 0 \<Longrightarrow> infsetsum (f x) UNIV = 1" for x
+  then have sumf: "sum (f x) M \<le> 1" if "finite M" for x M 
+    using that is_distribution_def' by auto
+  assume 3: "infsum \<mu> UNIV = 1 \<and> (\<forall>x\<in>{x. 0 < \<mu> x}. infsum (f x) UNIV = 1)"
+  then have weight\<mu>: "infsum \<mu> UNIV = 1"  by simp
+  from \<mu> \<mu>pos have weightfx: "\<mu> x \<noteq> 0 \<Longrightarrow> infsum (f x) UNIV = 1" for x
     using 3 less_eq_real_def by auto
-  fix B assume B_def: "B = (\<lambda>x. \<Sum>\<^sub>ay. \<mu> y * f y x)"
+  fix B assume B_def: "B = (\<lambda>x. \<Sum>\<^sub>\<infinity>y. \<mu> y * f y x)"
   assume B: "is_distribution B"
-    (* assume 4: "(\<forall>x. 0 \<le> (\<Sum>\<^sub>ay. \<mu> y * f y x)) \<and> (\<forall>M. finite M \<longrightarrow> (\<Sum>x\<in>M. \<Sum>\<^sub>ay. \<mu> y * f y x) \<le> 1)" *)
   have \<mu>sum: "\<mu> abs_summable_on UNIV"
-    using not_summable_infsetsum_eq weight\<mu> by fastforce
+    using \<mu> is_distribution_def summable_on_iff_abs_summable_on_real by blast
 
   have fleq1: "f x y \<le> 1" for x y
     using sumf[where M="{y}"] by simp
 
   have sum1: "(\<lambda>x. \<mu> x * f x y) abs_summable_on UNIV" for y
-    using \<mu>sum apply (rule abs_summable_on_comparison_test'[where g=\<mu>])
+    using \<mu>sum apply (rule Infinite_Sum.abs_summable_on_comparison_test[where g=\<mu>])
     by (simp add: f[simplified, unfolded is_distribution_def] \<mu>pos fleq1 mult_left_le)
-  have "(\<lambda>y. \<Sum>\<^sub>ax. \<mu> x * f x y) abs_summable_on UNIV"
-    using B unfolding B_def is_distribution_def by (simp add: distr_abs_summable_on)
-  then have sum2: "(\<lambda>y. \<Sum>\<^sub>ax. abs (\<mu> x * f x y)) abs_summable_on UNIV"
+  have "(\<lambda>y. \<Sum>\<^sub>\<infinity>x. \<mu> x * f x y) summable_on UNIV"
+    using B unfolding B_def is_distribution_def by blast
+  then have "(\<lambda>y. \<Sum>\<^sub>\<infinity>x. \<mu> x * f x y) abs_summable_on UNIV"
+    using summable_on_iff_abs_summable_on_real by force
+  then have sum2: "(\<lambda>y. \<Sum>\<^sub>\<infinity>x. norm (\<mu> x * f x y)) abs_summable_on UNIV"
     using f \<mu>pos by (auto simp: is_distribution_def)
-  have summable: "(\<lambda>(y, x). \<mu> x * f x y) abs_summable_on UNIV \<times> UNIV"
-    apply (rule abs_summable_product')
-    by (simp_all add: sum1 sum2)
+  have "(\<lambda>(y, x). \<mu> x * f x y) abs_summable_on UNIV \<times> UNIV"
+    apply (subst Infinite_Sum.abs_summable_on_Sigma_iff)
+    using sum1 sum2 by auto
+  then have summable: "(\<lambda>(y, x). \<mu> x * f x y) summable_on UNIV \<times> UNIV"
+    using summable_on_iff_abs_summable_on_real by blast
 
-  have "(\<Sum>\<^sub>ay. \<Sum>\<^sub>ax. \<mu> x * f x y) = (\<Sum>\<^sub>ax. \<Sum>\<^sub>ay. \<mu> x * f x y)"
-    using summable by (rule infsetsum_swap)
-  also have "\<dots> = (\<Sum>\<^sub>ax. \<mu> x * (\<Sum>\<^sub>ay. f x y))"
-    apply (subst infsetsum_cmult_right; simp)
-    using not_summable_infsetsum_eq weightfx by force
-  also have "\<dots> = (\<Sum>\<^sub>ax. \<mu> x * 1)"
-    by (rule infsetsum_cong; auto intro!: weightfx)
+  have "(\<Sum>\<^sub>\<infinity>y. \<Sum>\<^sub>\<infinity>x. \<mu> x * f x y) = (\<Sum>\<^sub>\<infinity>x. \<Sum>\<^sub>\<infinity>y. \<mu> x * f x y)"
+    using summable by (rule infsum_swap_banach)
+  also have "\<dots> = (\<Sum>\<^sub>\<infinity>x. \<mu> x * (\<Sum>\<^sub>\<infinity>y. f x y))"
+    apply (subst infsum_cmult_right)
+    using infsum_not_exists weightfx apply force
+    by simp
+  also have "\<dots> = (\<Sum>\<^sub>\<infinity>x. \<mu> x * 1)"
+    by (rule infsum_cong; auto intro!: weightfx)
   also have "\<dots> = 1"
     using weight\<mu> by simp
-  finally show "(\<Sum>\<^sub>ax. \<Sum>\<^sub>ay. \<mu> y * f y x) = 1" .
+  finally show "(\<Sum>\<^sub>\<infinity>x. \<Sum>\<^sub>\<infinity>y. \<mu> y * f y x) = 1" .
 qed
 
 lemmas o2h_distr0_def_sym = o2h_distr0_def[symmetric, simplified]
@@ -251,11 +255,11 @@ lemma [simp]: "weight scs_distr = 1"
 
 lemma divide_tmp_Gout:
   assumes [simp]: "declared_qvars \<lbrakk>Gin1,Gin2,Gout1,Gout2,quantA1,quantA2,Hin1,Hout1,Hin2,Hout2,tmp_Gout1,tmp_Gout2\<rbrakk>"
-  shows "Span {ket 0}\<guillemotright>\<lbrakk>tmp_Gout2\<rbrakk> \<sqinter> (\<lbrakk>quantA1, Hin1, Hout1, Gin1, Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2, Hin2, Hout2, Gin2, Gout2\<rbrakk> \<sqinter> Span {ket 0}\<guillemotright>\<lbrakk>tmp_Gout1\<rbrakk>)
+  shows "ccspan {ket 0}\<guillemotright>\<lbrakk>tmp_Gout2\<rbrakk> \<sqinter> (\<lbrakk>quantA1, Hin1, Hout1, Gin1, Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2, Hin2, Hout2, Gin2, Gout2\<rbrakk> \<sqinter> ccspan {ket 0}\<guillemotright>\<lbrakk>tmp_Gout1\<rbrakk>)
           \<le> \<lbrakk>tmp_Gout1, quantA1, Hin1, Hout1, Gin1, Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>tmp_Gout2, quantA2, Hin2, Hout2, Gin2, Gout2\<rbrakk>"
     (is "?lhs \<le> ?rhs") 
 proof -
-  have "Span {ket 0}\<guillemotright>\<lbrakk>tmp_Gout1\<rbrakk> \<sqinter> Span {ket 0}\<guillemotright>\<lbrakk>tmp_Gout2\<rbrakk> = \<lbrakk>tmp_Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>tmp_Gout2\<rbrakk> \<sqinter> Span {ket 0}\<guillemotright>\<lbrakk>tmp_Gout1\<rbrakk>"
+  have "ccspan {ket 0}\<guillemotright>\<lbrakk>tmp_Gout1\<rbrakk> \<sqinter> ccspan {ket 0}\<guillemotright>\<lbrakk>tmp_Gout2\<rbrakk> = \<lbrakk>tmp_Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>tmp_Gout2\<rbrakk> \<sqinter> ccspan {ket 0}\<guillemotright>\<lbrakk>tmp_Gout1\<rbrakk>"
     apply (subst quantum_eq_unique) by auto
   also have "\<dots> \<le> \<lbrakk>tmp_Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>tmp_Gout2\<rbrakk>"
     using inf.cobounded1 by blast

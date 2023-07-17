@@ -16,18 +16,18 @@ qrhl ClassicalQueryG_queryG:
  # gout <- measure Gout
  wp right.
  conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧
-     ⊓ Span {ket (gin2, G2 gin2)}»⟦Gin2, Gout2⟧.
+     ⊓ ccspan {ket (gin2, G2 gin2)}»⟦Gin2, Gout2⟧.
   simp! aux5a aux5b.
 
  # Uoracle G
  wp right.
- conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧ ⊓ Span {ket (gin2, 0)}»⟦Gin2, Gout2⟧.
-  simp! applyOpSpace_Span.
+ conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧ ⊓ ccspan {ket (gin2, 0)}»⟦Gin2, Gout2⟧.
+  simp! cblinfun_image_ccspan.
 
  # Gout <q 0
  wp right.
  conseq post: ⟦quantA1,aux1⟧ ≡𝔮 ⟦quantA2,aux2⟧
-  ⊓ Span {ket gin2}»⟦Gin2⟧.
+  ⊓ ccspan {ket gin2}»⟦Gin2⟧.
  rule aux6.
   simp!.
 

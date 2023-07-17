@@ -22,31 +22,36 @@ lemma game2FO'_goodbad_o2h_left_class: Pr[b=1: game2FO'_goodbad_o2h_left'(rho)] 
 
  # Adv_INDCCA_encFO
  equal mid quantA, Hin, Hout, Gin, Gout.
-  simp!.
+ 1-3: {
+ + simp!.
 
-  # queryH_Hq ~ queryH
-  conseq post: ℭ𝔩𝔞[H2 = mk_Hq Hq1 H01 G1 pk1] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ Cla[(Kstar1,in_cstar1,in_pk1,K'1,c1,classA1,Hq1,sk1,cstar1,Hr1,pk1,b1,G1) = (Kstar2,in_cstar2,in_pk2,K'2,c2,classA2,Hq2,sk2,cstar2,Hr2,pk2,b2,G2)].
-   simp!.
-  conseq pre: ℭ𝔩𝔞[H2 = mk_Hq Hq1 H01 G1 pk1] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ Cla[(Kstar1,in_cstar1,in_pk1,K'1,c1,classA1,Hq1,sk1,cstar1,Hr1,pk1,b1,G1) = (Kstar2,in_cstar2,in_pk2,K'2,c2,classA2,Hq2,sk2,cstar2,Hr2,pk2,b2,G2)].
-   simp!.
-  frame.
-   simp!.
-  sym.
-  rule queryH_invariant.
+ # queryH_Hq ~ queryH
+ + conseq post: ℭ𝔩𝔞[H2 = mk_Hq Hq1 H01 G1 pk1] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ 
+                Cla[(Kstar1,in_cstar1,in_pk1,K'1,c1,classA1,Hq1,sk1,cstar1,Hr1,pk1,b1,G1) = (Kstar2,in_cstar2,in_pk2,K'2,c2,classA2,Hq2,sk2,cstar2,Hr2,pk2,b2,G2)].
+    simp!.
+   conseq pre: ℭ𝔩𝔞[H2 = mk_Hq Hq1 H01 G1 pk1] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, Gin2, Gout2⟧ ⊓ 
+               Cla[(Kstar1,in_cstar1,in_pk1,K'1,c1,classA1,Hq1,sk1,cstar1,Hr1,pk1,b1,G1) = (Kstar2,in_cstar2,in_pk2,K'2,c2,classA2,Hq2,sk2,cstar2,Hr2,pk2,b2,G2)].
+    simp!.
+   frame.
+    simp!.
+   sym.
+   rule queryH_invariant.
 
   # decapsQuery2_G ~ decapsQuery2
-  conseq post: Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & Hr1=Hr2 & pk1=pk2 & Hq1=Hq2] ⊓ ⟦quantA1,Gin1,Gout1,Hin1,Hout1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,Hin2,Hout2⟧ ⊓ Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & classA1=classA2 & b1=b2 & Kstar1=Kstar2 & H2 = mk_Hq Hq1 H01 G1 pk1].
-   isa! auto simp: reorder_qeq1.
-  conseq pre: Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & Hr1=Hr2 & pk1=pk2 & Hq1=Hq2] ⊓ ⟦quantA1,Gin1,Gout1,Hin1,Hout1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,Hin2,Hout2⟧ ⊓ Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & classA1=classA2 & b1=b2 & Kstar1=Kstar2 & H2 = mk_Hq Hq1 H01 G1 pk1].
-   isa! auto simp: reorder_qeq1.
-  frame.
-   simp!.
-  sym.
-  conseq qrhl (aux->Hin,Hout): decapsQuery2_1G.
-   simp!.
-   simp!.
-   simp!.
+  + conseq post: Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & Hr1=Hr2 & pk1=pk2 & Hq1=Hq2] ⊓ 
+                 ⟦quantA1,Gin1,Gout1,Hin1,Hout1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,Hin2,Hout2⟧ ⊓ 
+                 Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & classA1=classA2 & b1=b2 & Kstar1=Kstar2 & H2 = mk_Hq Hq1 H01 G1 pk1].
+     isa! auto simp: reorder_qeq1.
+    conseq pre: Cla[G1=G2 & sk1=sk2 & c1=c2 & cstar1=cstar2 & K'1=K'2 & Hr1=Hr2 & pk1=pk2 & Hq1=Hq2] ⊓ 
+                ⟦quantA1,Gin1,Gout1,Hin1,Hout1⟧ ≡𝔮 ⟦quantA2,Gin2,Gout2,Hin2,Hout2⟧ ⊓
+                Cla[in_cstar1=in_cstar2 & in_pk1=in_pk2 & classA1=classA2 & b1=b2 & Kstar1=Kstar2 & H2 = mk_Hq Hq1 H01 G1 pk1].
+     isa! auto simp: reorder_qeq1.
 
+    frame.
+     simp!.
+    sym.
+    conseq qrhl (aux->Hin,Hout): decapsQuery2_1G.
+     simp!. simp!. simp!. }
  # End Adv_INDCCA_encFO
 
  # H2
@@ -58,16 +63,15 @@ lemma game2FO'_goodbad_o2h_left_class: Pr[b=1: game2FO'_goodbad_o2h_left'(rho)] 
 
  # ClassicalQueryG
  seq <-> 9 10: (⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧) ⊓ Cla[pk1 = pk2 ∧ mstar1 = mstar2 ∧ G2 gin2 = gout2 ∧ Hq1 = Hq2 & G1 = G2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ H01 = H02 ∧ sk1 = sk2 ∧ m'1 = m'2 ∧ Hr1 = Hr2 & gin1=gin2].
- conseq post: (Cla[G1 gin1=gout1] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧) ⊓ Cla[pk1 = pk2 ∧ mstar1 = mstar2 ∧ G2 gin2 = gout2 ∧ Hq1 = Hq2 & G1 = G2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ H01 = H02 ∧ sk1 = sk2 ∧ m'1 = m'2 ∧ Hr1 = Hr2 & gin1=gin2].
-  isa! auto.
- frame.
-  simp!.
+ { conseq post: (Cla[G1 gin1=gout1] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧) ⊓ 
+                 Cla[pk1 = pk2 ∧ mstar1 = mstar2 ∧ G2 gin2 = gout2 ∧ Hq1 = Hq2 & G1 = G2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ H01 = H02 ∧ sk1 = sk2 ∧ m'1 = m'2 ∧ Hr1 = Hr2 & gin1=gin2].
+     isa! auto.
+   frame.
+     simp!.
 
- sym.
- conseq qrhl (aux->.): ClassicalQueryG_queryG.
-  simp!.
-  simp!.
-  simp!.
+   sym.
+   conseq qrhl (aux->.): ClassicalQueryG_queryG.
+     simp!. simp!. simp!. }
 
  # gout
  wp right.

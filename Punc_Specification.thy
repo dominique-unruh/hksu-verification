@@ -2,7 +2,6 @@ theory Punc_Specification
   imports QRHL.QRHL "Base_Scheme"
 begin
 
-
 section \<open>Punctured scheme\<close>
 
 (* Slight generalization wrt paper: msg_space can be a subset of msg_space0-{puncture} *)

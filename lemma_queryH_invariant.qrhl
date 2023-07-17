@@ -18,12 +18,12 @@ qrhl queryH_invariant:
  local remove right.
   simp!.
 
- seq 0 1: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, tmp_Gin2, tmp_Gout2⟧ ⊓ Span {ket 0}»⟦Gout2⟧.
+ seq 0 1: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, tmp_Gin2, tmp_Gout2⟧ ⊓ ccspan {ket 0}»⟦Gout2⟧.
  wp right.
  skip.
  simp!.
 
- seq 1 0: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ (Uoracle H1»⟦Hin1,Hout1⟧ · ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, tmp_Gin2, tmp_Gout2⟧) ⊓ Span {ket 0}»⟦Gout2⟧.
+ seq 1 0: ℭ𝔩𝔞[H1 = mk_Hq Hq2 H02 G2 pk2] ⊓ (Uoracle H1»⟦Hin1,Hout1⟧ ⋅ ⟦quantA1, Hin1, Hout1, Gin1, Gout1⟧ ≡𝔮 ⟦quantA2, Hin2, Hout2, tmp_Gin2, tmp_Gout2⟧) ⊓ ccspan {ket 0}»⟦Gout2⟧.
  wp left.
  skip.
  simp!.

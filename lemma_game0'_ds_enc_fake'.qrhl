@@ -23,7 +23,7 @@ lemma game0'_ds_enc_fake': Pr[b=1 : game0'(rho)] = Pr[b=1 : ds_enc_fake'(rho)].
   simp!.
 
  # move G
- swap right 1 4.
+ swap right 5-5 1-4.
 
  wp 2 2.
  conseq post: ℭ𝔩𝔞[pk1=pk2 ∧ cstar1=cstar2 ∧ classA1 = classA2 ∧ b1 = b2 ∧ G1=G2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.

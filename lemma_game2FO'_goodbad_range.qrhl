@@ -80,8 +80,8 @@ lemma game2FO'_goodbad_range: Pr[b=1: game2FO'_goodbad_range(rho)] = Pr[b=1: gam
   simp!.
 
  # Move H0 before Hr,Hq
- swap left 2 1.
- swap right 2 1.
+ swap left 5-6 4-4.
+ swap right 5-6 4-4.
 
  # Hq,Hr
  squash left.

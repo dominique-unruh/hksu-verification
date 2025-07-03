@@ -63,7 +63,7 @@ lemma game2FO'_ds_encT_real': Pr[b=1:game2FO'(rho)] = Pr[b=1:ds_encT_real'(rho)]
   simp!.
 
  # Hr,H0,Hq after G
- swap right 7-9 5.
+ swap right 7-9 2-6.
 
  # in_cstar, in_pk, Kstar, adv_cstar
  wp 2 2.

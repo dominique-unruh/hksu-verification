@@ -102,7 +102,7 @@ lemma game2FO'_goodbad: Pr[b=1: game2FO'(rho)] = Pr[b=1: game2FO'_goodbad(rho)].
 
  # move G from beginning to here
  simp * keygenFO_anyG.
- swap left 2-5 1.
+ swap left 2-5 1-1.
 
  # squash Ggood, Gbad, S, G
  squash right.

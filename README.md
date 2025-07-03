@@ -6,10 +6,18 @@ This repository contains the formalized proofs from the paper
 
 ## Installing qrhl-tool
 
-To execute the proofs, you need the qrhl-tool version 0.7.
+To execute the proofs, you need the qrhl-tool version v0.7.3.
 It supports Linux, OS/X, and Windows.
 
-For installation instructions see the [qrhl-tool webpage](https://dominique-unruh.github.io/qrhl-tool/install.html).
+(As an alternative to the following installation instructions, Linux shell script `quick-test.sh`.
+See the comments in that file.)
+
+The binary distribution is available here:
+https://github.com/dominique-unruh/qrhl-tool/releases/download/v0.7.3/qrhl.zip
+
+For installation instructions, see the
+[README](https://github.com/dominique-unruh/qrhl-tool/blob/v0.7.3/README.md)
+of qrhl-tool. 
 
 In the following, let `QRHL-DIR` denote the installation directory of qrhl-tool.
 

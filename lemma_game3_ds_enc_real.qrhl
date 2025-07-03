@@ -21,7 +21,7 @@ lemma game3_ds_enc_real: Pr[b=1 : game3(rho)] = Pr[b=1 : ds_enc_real(rho)].
   simp!.
  
  # G
- swap right 1 5.
+ swap right 6-6 1-5.
 
  wp 2 2.
  conseq post: ℭ𝔩𝔞[G1=G2 ∧ pk1=pk2 ∧ cstar1=cstar2 ∧ b1=b2 ∧ classA1=classA2] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.

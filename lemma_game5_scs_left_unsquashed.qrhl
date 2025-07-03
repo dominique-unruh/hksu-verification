@@ -28,7 +28,7 @@ lemma game5_scs_left_unsquashed: Pr[Find:game5(rho)] = Pr[Find:scs_left_unsquash
   simp!.
 
  # Find to before G
- swap right 8-8 6.
+ swap right 8-8 2-7.
 
  # in_pk, in_cstar, S
  # cstar1

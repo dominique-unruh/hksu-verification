@@ -83,9 +83,9 @@ lemma G2G2:
       = \<lbrakk>quantA1, Hin1, Hout1, Gin1, Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2, Hin2, Hout2, Gin2, Gout2\<rbrakk>"
   (is "_ = ?Q1 \<equiv>\<qq> ?Q2")
 proof -
-  have 1: "Uoracle H\<guillemotright>\<lbrakk>Gin1, Gout1\<rbrakk> = (idOp \<otimes> (idOp \<otimes> (idOp \<otimes> Uoracle H)))\<guillemotright>?Q1"
+  have 1: "Uoracle H\<guillemotright>\<lbrakk>Gin1, Gout1\<rbrakk> = (idOp \<otimes>\<^sub>o (idOp \<otimes>\<^sub>o (idOp \<otimes>\<^sub>o Uoracle H)))\<guillemotright>?Q1"
     apply (subst lift_tensorOp[symmetric], simp)+ by simp
-  have 2: "Uoracle H\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk> = (idOp \<otimes> (idOp \<otimes> (idOp \<otimes> Uoracle H)))\<guillemotright>?Q2"
+  have 2: "Uoracle H\<guillemotright>\<lbrakk>Gin2, Gout2\<rbrakk> = (idOp \<otimes>\<^sub>o (idOp \<otimes>\<^sub>o (idOp \<otimes>\<^sub>o Uoracle H)))\<guillemotright>?Q2"
     apply (subst lift_tensorOp[symmetric], simp)+ by simp
   show ?thesis
     unfolding 1 2 by simp
@@ -103,20 +103,20 @@ lemma H2H2':
       = \<lbrakk>quantA1, Hin1, Hout1, Gin1, Gout1\<rbrakk> \<equiv>\<qq> \<lbrakk>quantA2, Hin2, Hout2, Gin2, Gout2\<rbrakk>"
   (is "_ = ?Q1 \<equiv>\<qq> ?Q2")
 proof -
-  have 1: "Uoracle H\<guillemotright>\<lbrakk>Hin1, Hout1\<rbrakk> = (idOp \<otimes> (assoc_op* o\<^sub>C\<^sub>L (Uoracle H \<otimes> idOp) o\<^sub>C\<^sub>L assoc_op))\<guillemotright>?Q1"
+  have 1: "Uoracle H\<guillemotright>\<lbrakk>Hin1, Hout1\<rbrakk> = (idOp \<otimes>\<^sub>o (assoc_op* o\<^sub>C\<^sub>L (Uoracle H \<otimes>\<^sub>o idOp) o\<^sub>C\<^sub>L assoc_op))\<guillemotright>?Q1"
     apply (subst lift_tensorOp[symmetric], simp_all)
     apply (subst assoc_op_lift')
     by (subst lift_tensorOp[symmetric], simp_all)
-  have 2: "Uoracle H\<guillemotright>\<lbrakk>Hin2, Hout2\<rbrakk> = (idOp \<otimes> (assoc_op* o\<^sub>C\<^sub>L (Uoracle H \<otimes> idOp) o\<^sub>C\<^sub>L assoc_op))\<guillemotright>?Q2"
+  have 2: "Uoracle H\<guillemotright>\<lbrakk>Hin2, Hout2\<rbrakk> = (idOp \<otimes>\<^sub>o (assoc_op* o\<^sub>C\<^sub>L (Uoracle H \<otimes>\<^sub>o idOp) o\<^sub>C\<^sub>L assoc_op))\<guillemotright>?Q2"
     apply (subst lift_tensorOp[symmetric], simp_all)
     apply (subst assoc_op_lift')
     by (subst lift_tensorOp[symmetric], simp_all)
-  have "(assoc_op* \<cdot> Uoracle H \<otimes> idOp \<cdot> assoc_op) \<cdot> (assoc_op* \<cdot> (Uoracle H* \<otimes> idOp \<cdot> assoc_op)) = 
-        assoc_op* \<cdot> (Uoracle H \<otimes> idOp \<cdot> (assoc_op \<cdot> assoc_op*) \<cdot> Uoracle H* \<otimes> idOp) \<cdot> assoc_op"
+  have "(assoc_op* \<cdot> (Uoracle H \<otimes>\<^sub>o idOp) \<cdot> assoc_op) \<cdot> (assoc_op* \<cdot> (Uoracle H* \<otimes>\<^sub>o idOp \<cdot> assoc_op)) = 
+        assoc_op* \<cdot> (Uoracle H \<otimes>\<^sub>o idOp \<cdot> (assoc_op \<cdot> assoc_op*) \<cdot> (Uoracle H* \<otimes>\<^sub>o idOp)) \<cdot> assoc_op"
     by (simp only: cblinfun_compose_assoc)
   also have "\<dots> = idOp"
     by simp
-  finally have cancel: "(assoc_op* \<cdot> Uoracle H \<otimes> idOp \<cdot> assoc_op) \<cdot> (assoc_op* \<cdot> (Uoracle H* \<otimes> idOp \<cdot> assoc_op)) = idOp"
+  finally have cancel: "(assoc_op* \<cdot> (Uoracle H \<otimes>\<^sub>o idOp) \<cdot> assoc_op) \<cdot> (assoc_op* \<cdot> (Uoracle H* \<otimes>\<^sub>o idOp \<cdot> assoc_op)) = idOp"
     by -
   show ?thesis
     unfolding 1 2 by (simp add: cancel)
@@ -744,6 +744,7 @@ lemma aux5b:
   unfolding variable_raw_name.rep_eq
   apply (subst Abs_variable_raw_inverse)
   by auto *)
+
 
 lemma aux6:
   assumes [simp]: "declared_qvars \<lbrakk>quantA1, quantA2, Gout2, Gin2, aux1, aux2\<rbrakk>"

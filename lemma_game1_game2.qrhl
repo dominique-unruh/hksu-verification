@@ -23,7 +23,7 @@ lemma game1_game2: Pr[b=1: game1(rho)] = Pr[b=1: game2(rho)].
   simp! fun_upd_def.
 
  # rstar2 after G
- swap right 1 2.
+ swap right 4-4 2-3.
 
  # rstar1
  wp left.
@@ -31,8 +31,8 @@ lemma game1_game2: Pr[b=1: game1(rho)] = Pr[b=1: game2(rho)].
   simp!.
 
  # mstar1, mstar2 to beginning
- swap right 1 3.
- swap left 1 2.
+ swap right 4-4 1-3.
+ swap left 3-3 1-2.
 
  rnd.
  conseq post: ℭ𝔩𝔞[mstar1=mstar2 ∧ classA1=classA2 ∧ b1=b2 ∧ G1 = G2(mstar2 := rstar2)] ⊓ ⟦quantA1⟧ ≡𝔮 ⟦quantA2⟧.

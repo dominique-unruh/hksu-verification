@@ -81,8 +81,8 @@ lemma game0FO'_game1FO': Pr[b=1:game0FO'(rho)] = Pr[b=1:game1FO'(rho)].
 
  # Move pk,sk,prfk before H1/H02
  simp * keygenFO_anyH.
- swap left 4-4 1.
- swap right 5-5 2.
+ swap left 4-4 3-3.
+ swap right 5-5 3-4.
 
  # H1, H02 Hq2
  squash right.

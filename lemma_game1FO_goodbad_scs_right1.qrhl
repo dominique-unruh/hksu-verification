@@ -7,7 +7,7 @@ lemma game1FO_goodbad_scs_right1: Pr[guess∈S : game1FO_goodbad_scs_right_unsqu
  inline game1FO_goodbad_scs_right1.
  inline game1FO_goodbad_scs_right_unsquashed.
 
- swap left 1 1.
+ swap left 6-6 5-5.
 
  rnd S, b <- below_bernoulli (Rbad_select (fst z'1) (snd z'1))
                              {S. guess1∈S} 

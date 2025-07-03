@@ -61,18 +61,18 @@ qrhl game3FO_game4FO: {ℭ𝔩𝔞[classA1 = classA2 ∧ b1 = b2 ∧ in_pk1 = in
   simp!.
 
  # pk,(sk,prfk) before Hq, H0
- swap left 5-5 2.
+ swap left 5-5 3-4.
  # cstar after pk,(sk,prfk)
- swap left 8-8 4.
+ swap left 8-8 4-7.
  # Kstar after Hq, H0
- swap left 9-9 2.
+ swap left 9-9 7-8.
 
  # pk,(sk,prfk) before Hq, H0
- swap right 5-5 2.
+ swap right 5-5 3-4.
  # cstar after pk,(sk,prfk)
- swap right 8-8 4.
+ swap right 8-8 4-7.
  # Kstar after Hq, H0
- swap right 9-9 2.
+ swap right 9-9 7-8.
 
  # mstar
  wp 1 1.

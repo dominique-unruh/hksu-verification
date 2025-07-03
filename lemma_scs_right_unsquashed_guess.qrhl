@@ -7,10 +7,10 @@ lemma scs_right_unsquashed_guess: Pr[guess∈S : scs_right_unsquashed(rho)] ≤ 
  byqrhl.
  inline guess_m.
  inline scs_right_unsquashed.
- swap left 1 1.
+ swap left 8-8 9-9.
  wp left.
  simp.
- swap left 3 1.
+ swap left 5-5 6-8.
 
  rnd mstar,m <- map_distr (λm. (m, swap guess1 m)) (uniform (msg_space())).
  simp.

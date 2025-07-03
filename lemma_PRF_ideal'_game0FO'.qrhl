@@ -60,7 +60,7 @@ lemma PRF_ideal'_game0FO': Pr[b=1:PRF_ideal'(rho)] = Pr[b=1:game0FO'(rho)].
   simp! case_prod_beta.
 
  # move Hr to beginning
- swap right 2-2 1.
+ swap right 1-1 2-2.
 
  # G,H
  squash right.

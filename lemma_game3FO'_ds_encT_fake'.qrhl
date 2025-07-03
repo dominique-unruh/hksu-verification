@@ -64,7 +64,7 @@ lemma game3FO'_ds_encT_fake': Pr[b=1:game3FO'(rho)] = Pr[b=1:ds_encT_fake'(rho)]
   simp!.
 
  # Hq,H0,Hr after G
- swap right 6-8 4.
+ swap right 6-8 2-5.
 
  # in_cstar, in_pk, Kstar, adv_cstar
  wp 2 2.

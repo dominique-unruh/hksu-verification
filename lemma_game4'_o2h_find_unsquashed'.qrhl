@@ -28,7 +28,7 @@ lemma game4'_o2h_find_unsquashed': Pr[Find:game4'(rho)] = Pr[Find:o2h_find_unsqu
   simp!.
 
  # Find2 to beginning
- swap right 9-9 8.
+ swap right 9-9 1-8.
 
  # in_cstar, in_pk, S
  # Find2, z2, G'2, cstar1, pk

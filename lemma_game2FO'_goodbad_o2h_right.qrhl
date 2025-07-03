@@ -63,10 +63,10 @@ lemma game2FO'_goodbad_o2h_right: Pr[b=1: game2FO'_goodbad(rho)] = Pr[b=1: game2
   simp!.
 
  # move Hr,H0,Hq,prfk on right side to beginning
- swap right 4-7 3.
+ swap right 4-7 1-3.
 
  # move pk,sk on left side before Ggood
- swap left 5-5 1.
+ swap left 5-5 4-4.
 
  # pk2, sk2
  wp right.

@@ -42,7 +42,7 @@ lemma indcca_encFO_0_PRF_real: Pr[b=1:indcca_encFO_0(rho)] = Pr[b=1:PRF_real(rho
   simp!.
 
  # G,H to beginning
- swap right 2 1.
+ swap right 2-3 1-1.
 
  # prfk, pk, sk
  squash right.

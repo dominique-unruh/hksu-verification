@@ -21,7 +21,7 @@ lemma game4'_indcpa_enc_1': Pr[Find : game4'(rho)] = Pr[b=1 : indcpa_enc_1'(rho)
   simp!.
 
  # Find to beginning
- swap right 12-12 11.
+ swap right 12-12 1-11.
 
  # S, in_pk, in_cstar
  wp 3 3.
@@ -53,7 +53,7 @@ lemma game4'_indcpa_enc_1': Pr[Find : game4'(rho)] = Pr[b=1 : indcpa_enc_1'(rho)
   simp!.
 
  # Move G2 after Find
- swap right 1 2.
+ swap right 4-4 2-3.
 
  # in_pk2
  wp right.
